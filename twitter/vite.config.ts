@@ -14,6 +14,19 @@ export default defineConfig({
       babel: {
         plugins: babelPlugins
       }
-    })
-  ]
+    })],
+    resolve: {
+      alias: {
+        assets: "src/assets",
+        components: "/src/components",
+        pages: "/src/pages",
+        hooks: "/src/hooks",
+        hoc: "/src/hoc",
+        helpers: "/src/helpers",
+        store: "/src/store",
+        types: "/src/types",
+        const: "/src/constants",
+      },
+    },
+
 });
