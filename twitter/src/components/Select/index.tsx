@@ -1,7 +1,9 @@
 import { useState } from "react";
 
+import { useClickOutside } from "hooks";
 import { Option } from "types";
 import VectorIcon from "assets/images/svg/vector.svg?react";
+
 import { SelectBtn, SelectContent, SelectOption, SelectWrapper, StyledSelect } from "./styled";
 
 interface SelectProps {
@@ -13,18 +15,21 @@ interface SelectProps {
 export const Select: React.FC<SelectProps> = ({ title, options, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClick = () => {
+  const ref = useClickOutside(() => setIsOpen(false));
+
+  const handleClick = () => {
     setIsOpen((prev) => !prev);
   };
+
   const hanldeSelect = (value: Option) => () => {
     onSelect(value);
   };
 
   return (
-    <SelectWrapper>
+    <SelectWrapper ref={ref} onClick={handleClick}>
       <StyledSelect>
         {title}
-        <SelectBtn onClick={onClick}>
+        <SelectBtn>
           <VectorIcon />
         </SelectBtn>
       </StyledSelect>

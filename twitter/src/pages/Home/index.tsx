@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
+import { setPost } from "api/index";
+import { signInWithGoogle } from "api/signInWithGoogle";
 import { H1, H2 } from "styled";
 import Twitter from "assets/images/png/back-twitter.png";
 import GoogleIcon from "assets/images/svg/google-logo.svg?react";
+
 import { ImageContainer, StyledButton } from "./styled";
 
 export const Home = () => {
@@ -11,6 +14,12 @@ export const Home = () => {
   const hanldeEmailClick = () => {
     navigate("/sign-up");
   };
+
+  const handleGoogleClick = async () => {
+    const user = await signInWithGoogle();
+    setPost(user.uid);
+  };
+
   return (
     <section style={{ display: "flex" }}>
       <ImageContainer>
@@ -31,7 +40,7 @@ export const Home = () => {
           <H2>Join Twitter today</H2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "21px" }}>
-            <StyledButton>
+            <StyledButton onClick={handleGoogleClick}>
               <GoogleIcon /> Sign up with Google
             </StyledButton>
             <StyledButton onClick={hanldeEmailClick}>Sign up with email</StyledButton>

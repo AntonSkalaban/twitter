@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { inputMixin } from "./Mixin";
 
+const colors: { [key: string]: string } = { blue: "rgba(29, 161, 242, 1)" };
+
 export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue" }>`
   width: 100%;
   height: 62px;
@@ -10,11 +12,13 @@ export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue" 
 
   border-radius: 42px;
 
-  background-color: ${({ $color }) => $color || "#fff"};
+  background-color: ${({ $color }) => colors[$color as string] || "#fff"};
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+
+  cursor: pointer;
 `;
 
 export const H1 = styled.h1`
@@ -42,6 +46,17 @@ export const H3 = styled.h3`
 
   color: #000000;
 `;
+
+export const H4 = styled.h4`
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #000000;
+`;
+
 export const Input = styled.input`
   ${inputMixin}
 `;

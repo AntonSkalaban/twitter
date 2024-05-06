@@ -22,11 +22,13 @@
       "pages/*": ["pages/*"],
       "store/*": ["store/*"],
       "constants/*": ["constants/*"],
+      "hooks/*": ["hooks/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
       "tests/*": ["tests/*"],
       "styled/*": ["styled/*"],
       "hocs/*": ["hocs/*"],
+      "api/*": ["api/*"],
    }
   },
   "include": ["src"],

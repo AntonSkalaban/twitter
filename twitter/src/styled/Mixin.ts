@@ -7,4 +7,6 @@ export const inputMixin = css`
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   padding: 20px 24px;
+
+  cursor: pointer;
 `;
