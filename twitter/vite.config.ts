@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr' 
 
 const babelPlugins = [];
 
@@ -14,18 +15,21 @@ export default defineConfig({
       babel: {
         plugins: babelPlugins
       }
+      }),
+      svgr({  include: "**/*.svg?react",
     })],
     resolve: {
       alias: {
-        assets: "src/assets",
+        assets: "/src/assets",
         components: "/src/components",
         pages: "/src/pages",
+        styled: "/src/styled",
         hooks: "/src/hooks",
         hoc: "/src/hoc",
         helpers: "/src/helpers",
         store: "/src/store",
         types: "/src/types",
-        const: "/src/constants",
+        constants: "/src/constants",
       },
     },
 
