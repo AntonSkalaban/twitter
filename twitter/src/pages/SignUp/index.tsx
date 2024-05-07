@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { Button } from "styled";
+import { Button, Input } from "styled";
 import { BitrhDaySelect } from "components/BirthDaySelect.ts";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
@@ -11,7 +11,7 @@ import {
   SignUpForm,
   SignUpH3,
   SignUpH4,
-  SignUpInput,
+  SignUpInpitsContainer,
   SignUpP,
   SignUpWrapper,
 } from "./styled";
@@ -49,14 +49,17 @@ export const SignUp: FC = () => {
       <SignUpH3>Create an account</SignUpH3>
 
       <SignUpForm onSubmit={(e: FormEvent) => e.preventDefault()}>
-        <SignUpInput placeholder="Name" value={name} onChange={hanldeNameChange} />
-        <SignUpInput
-          type="tel"
-          placeholder="Phone number"
-          value={phone}
-          onChange={hanldeNumberChange}
-        />
-        <SignUpInput type="email" placeholder="Email" value={email} onChange={hanldeEmailChange} />
+        <SignUpInpitsContainer>
+          <Input placeholder="Name" value={name} onChange={hanldeNameChange} />
+          <Input
+            type="tel"
+            placeholder="Phone number"
+            value={phone}
+            onChange={hanldeNumberChange}
+          />
+          <Input type="email" placeholder="Email" value={email} onChange={hanldeEmailChange} />
+        </SignUpInpitsContainer>
+
         <NavLink to={"/"}>Use email</NavLink>
 
         <BirthdayContainer>

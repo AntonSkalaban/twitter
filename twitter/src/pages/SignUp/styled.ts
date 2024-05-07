@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { H3, H4, Input } from "styled";
+import { H3, H4 } from "styled";
 
 export const SignUpWrapper = styled.main`
   width: 710px;
@@ -17,10 +17,12 @@ export const SignUpH3 = styled(H3)`
 `;
 
 export const SignUpForm = styled.form``;
-export const SignUpInput = styled(Input)`
-  margin-bottom: 26px;
-`;
 
+export const SignUpInpitsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+`;
 export const SignUpH4 = styled(H4)``;
 
 export const BirthdayContainer = styled.div`

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { setPost } from "api/index";
 import { signInWithGoogle } from "api/signInWithGoogle";
@@ -17,7 +17,7 @@ export const Home = () => {
 
   const handleGoogleClick = async () => {
     const user = await signInWithGoogle();
-    setPost(user.uid);
+    if (user) setPost(user.uid);
   };
 
   return (
@@ -51,7 +51,9 @@ export const Home = () => {
               By singing up you agree to the Terms of Service and Privacy Policy, including Cookie
               Use.
             </p>
-            <p>Already have an account? Log in</p>
+            <p>
+              Already have an account? <NavLink to={"login"}>Log in</NavLink>
+            </p>
           </div>
         </div>
       </div>
