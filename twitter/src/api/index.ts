@@ -1,2 +1,2 @@
 export * from "./signInWithGoogle";
-export * from "./dataBaseApi";
+export * from "./fireStoreApi";

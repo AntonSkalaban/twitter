@@ -19,7 +19,7 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ value, onSelect }) => 
 
   const yearsOtions = useMemo(() => {
     const year = new Date().getFullYear();
-    const isFebruary29 = value.month === "February" && +value.day === 29;
+    const isFebruary29 = +value.month === 10 && +value.day === 29;
 
     return getYearsOptions(year, year - 99, isFebruary29);
   }, [value.month, value.day]);
@@ -34,7 +34,7 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ value, onSelect }) => 
   };
 
   const hanldeYearSelect = (year: Option) => {
-    if (value.month === "February" && +value.day === 29) {
+    if (+value.month === 10 && +value.day === 29) {
       onSelect({ month: "", day: "" });
     }
     onSelect({ year: String(year.value) });
@@ -42,7 +42,11 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ value, onSelect }) => 
 
   return (
     <SelectsContainer>
-      <Select title={value.month || "Month"} options={monthsOptions} onSelect={hanldeMonthSelect} />
+      <Select
+        title={value.month ? monthsOptions[+value.month].name : "Month"}
+        options={monthsOptions}
+        onSelect={hanldeMonthSelect}
+      />
       <Select title={value.day || "Day"} options={daysOtions} onSelect={hanldeDaySelect} />
       <Select title={value.year || "Year"} options={yearsOtions} onSelect={hanldeYearSelect} />
     </SelectsContainer>

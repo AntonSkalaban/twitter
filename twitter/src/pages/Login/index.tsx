@@ -32,7 +32,7 @@ export const Login: FC = () => {
         />
         <Input
           type="password"
-          placeholder="Phone number"
+          placeholder="Password"
           value={password.value}
           onChange={hanldePasswordChange}
         />

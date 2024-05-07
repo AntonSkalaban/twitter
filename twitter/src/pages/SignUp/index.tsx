@@ -1,8 +1,11 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { addUser } from "api/fireStoreApi";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Button, Input } from "styled";
 import { BitrhDaySelect } from "components/BirthDaySelect.ts";
+import { auth } from "constants/index";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
 import { birthdayText } from "./constansts";
@@ -20,6 +23,7 @@ export const SignUp: FC = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [dateOfBirth, setDateOfBirth] = useState({ month: "", day: "", year: "" });
 
@@ -43,12 +47,28 @@ export const SignUp: FC = () => {
     setDateOfBirth((prev) => ({ ...prev, ...value }));
   };
 
+  const hanldePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setPassword(value);
+  };
+
+  const hanldeSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const birth = new Date(+dateOfBirth.year, +dateOfBirth.month, +dateOfBirth.day);
+    if (name && password && phone && email && birth) {
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+      addUser({ userId: user.uid, name, email, phone, birth, password });
+    }
+  };
+
   return (
     <SignUpWrapper>
       <TwitterIcon />
       <SignUpH3>Create an account</SignUpH3>
 
-      <SignUpForm onSubmit={(e: FormEvent) => e.preventDefault()}>
+      <SignUpForm onSubmit={hanldeSubmit}>
         <SignUpInpitsContainer>
           <Input placeholder="Name" value={name} onChange={hanldeNameChange} />
           <Input
@@ -58,6 +78,12 @@ export const SignUp: FC = () => {
             onChange={hanldeNumberChange}
           />
           <Input type="email" placeholder="Email" value={email} onChange={hanldeEmailChange} />
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={hanldePasswordChange}
+          />
         </SignUpInpitsContainer>
 
         <NavLink to={"/"}>Use email</NavLink>

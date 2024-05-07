@@ -1,8 +1,9 @@
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { setPost } from "api/index";
 import { signInWithGoogle } from "api/signInWithGoogle";
 import { H1, H2 } from "styled";
+import { setUser } from "store/slices";
 import Twitter from "assets/images/png/back-twitter.png";
 import GoogleIcon from "assets/images/svg/google-logo.svg?react";
 
@@ -10,14 +11,25 @@ import { ImageContainer, StyledButton } from "./styled";
 
 export const Home = () => {
   const navigate = useNavigate();
-
+  const dispath = useDispatch();
   const hanldeEmailClick = () => {
     navigate("/sign-up");
   };
 
   const handleGoogleClick = async () => {
     const user = await signInWithGoogle();
-    if (user) setPost(user.uid);
+
+    if (user) {
+      dispath(
+        setUser({
+          id: user.uid,
+          name: user.displayName || "",
+          email: user.email || "",
+          phone: user.phoneNumber || "",
+        }),
+      );
+      navigate("/profile");
+    }
   };
 
   return (
