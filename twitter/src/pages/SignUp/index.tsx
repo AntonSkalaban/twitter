@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { addUser } from "api/fireStoreApi";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -27,6 +27,7 @@ export const SignUp: FC = () => {
 
   const [dateOfBirth, setDateOfBirth] = useState({ month: "", day: "", year: "" });
 
+  const navigate = useNavigate();
   const hanldeNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
     if (value.length > 11) return;
@@ -55,11 +56,12 @@ export const SignUp: FC = () => {
   const hanldeSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const birth = new Date(+dateOfBirth.year, +dateOfBirth.month, +dateOfBirth.day);
+    const birth = new Date(+dateOfBirth.year, +dateOfBirth.month, +dateOfBirth.day).toISOString();
     if (name && password && phone && email && birth) {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
-      addUser({ userId: user.uid, name, email, phone, birth, password });
+      addUser({ id: user.uid, name, email, phone, birth, image: null });
+      navigate("/profile");
     }
   };
 

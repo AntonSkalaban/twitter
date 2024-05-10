@@ -1,0 +1,30 @@
+import { styled } from "styled-components";
+
+export const ContentContainer = styled.div`
+  width: 100%;
+  margin: 0;
+`;
+
+export const UserInfoContainer = styled.div`
+  display: flex;
+`;
+
+export const UserName = styled.p`
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #000000;
+`;
+
+export const UserEmail = styled.p`
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.09px;
+  text-align: left;
+`;
+
+export const LikeButton = styled.button``;

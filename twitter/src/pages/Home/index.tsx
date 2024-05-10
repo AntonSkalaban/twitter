@@ -6,12 +6,14 @@ import { H1, H2 } from "styled";
 import { setUser } from "store/slices";
 import Twitter from "assets/images/png/back-twitter.png";
 import GoogleIcon from "assets/images/svg/google-logo.svg?react";
+import TwitterLogo from "assets/images/svg/twitter-logo.svg?react";
 
 import { ImageContainer, StyledButton } from "./styled";
 
 export const Home = () => {
   const navigate = useNavigate();
   const dispath = useDispatch();
+
   const hanldeEmailClick = () => {
     navigate("/sign-up");
   };
@@ -25,7 +27,8 @@ export const Home = () => {
           id: user.uid,
           name: user.displayName || "",
           email: user.email || "",
-          phone: user.phoneNumber || "",
+          phone: user.phoneNumber,
+          image: user.photoURL,
         }),
       );
       navigate("/profile");
@@ -37,7 +40,9 @@ export const Home = () => {
       <ImageContainer>
         <img src={Twitter} />
       </ImageContainer>
+
       <div style={{ marginLeft: "41px" }}>
+        <TwitterLogo />
         <H1>Happening now</H1>
 
         <div
