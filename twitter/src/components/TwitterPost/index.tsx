@@ -15,14 +15,16 @@ interface PostProps {
 }
 
 export const TwitterPost: FC<PostProps> = ({ post }) => {
-  const { id, userId, title, image, likes, date, likedUsers } = post;
+  const { id, userId, title, image, date, likedUsers } = post;
   const [user, setUser] = useState<User>();
   const [isLiked, setIsLiked] = useState(false);
+  const [likesCounter, setLikesCounter] = useState(likedUsers.length);
 
   useEffect(() => {
     const getPostOwner = async () => {
       const user = await getUser(userId);
       if (!user) return;
+
       setUser(user);
       setIsLiked(likedUsers.includes(user.id));
     };
@@ -32,13 +34,15 @@ export const TwitterPost: FC<PostProps> = ({ post }) => {
 
   const hanldeClick = () => {
     setIsLiked((prev) => !prev);
+
+    setLikesCounter((prev) => (isLiked ? prev - 1 : prev + 1));
     updatePost(id, {
-      likes: likes + (isLiked ? -1 : +1),
       likedUsers: isLiked ? likedUsers.filter((id) => id !== userId) : [...likedUsers, userId],
     });
   };
 
   if (!user?.id) return;
+
   return (
     <PostWrapper>
       <PostUserImgContainer>
@@ -65,7 +69,7 @@ export const TwitterPost: FC<PostProps> = ({ post }) => {
           <LikeButton onClick={hanldeClick}>
             {isLiked ? <LikeIconActive /> : <LikeIcon />}
           </LikeButton>{" "}
-          <P>{isLiked ? likes + 1 : likes}</P>
+          <P>{likesCounter}</P>
         </div>
       </ContentContainer>
     </PostWrapper>

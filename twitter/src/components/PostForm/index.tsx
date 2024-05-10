@@ -49,7 +49,6 @@ export const PostForm: FC = () => {
       title,
       image: image64,
       date: new Date().toISOString(),
-      likes: 0,
       likedUsers: [],
     });
   };
