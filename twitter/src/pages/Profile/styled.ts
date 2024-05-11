@@ -15,6 +15,7 @@ export const UserInfoContainer = styled.section`
 `;
 
 export const UserImgContainer = styled.div`
+  width: 85px;
   height: 85px;
   position: relative;
 `;

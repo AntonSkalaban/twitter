@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { getUserPosts } from "api/fireStoreApi";
-import { Button, H5, P } from "styled/index";
+import { Button, H5, P, UserAvatar } from "styled/index";
 import { Sidebar, TwitterPost } from "components";
 import { PostForm } from "components/PostForm";
 import { getUser } from "store/slices";
@@ -37,17 +37,14 @@ export const Profile: FC = () => {
         <UserInfoContainer>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <UserImgContainer>
-              <div
-                style={{
-                  width: "120px",
-                  height: "120px",
-                  borderRadius: "50%",
-                  backgroundColor: "pink",
-                  position: "absolute",
-                  bottom: 0,
-                }}
-              />
+              {user?.image && (
+                <UserAvatar
+                  style={{ position: "absolute", width: "120px", height: "120px", bottom: 0 }}
+                  src={user?.image}
+                />
+              )}
             </UserImgContainer>
+
             <Button $width="120px">Edit profile</Button>
           </div>
 

@@ -30,6 +30,7 @@ export default defineConfig({
       helpers: "/src/helpers",
       store: "/src/store",
       types: "/src/types",
+      utils: "/src/utils",
       constants: "/src/constants",
     },
   },

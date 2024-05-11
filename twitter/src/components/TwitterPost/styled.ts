@@ -1,10 +1,5 @@
 import { styled } from "styled-components";
 
-export const ContentContainer = styled.div`
-  width: 100%;
-  margin: 0;
-`;
-
 export const UserInfoContainer = styled.div`
   display: flex;
 `;
@@ -26,5 +21,3 @@ export const UserEmail = styled.p`
   line-height: 21.09px;
   text-align: left;
 `;
-
-export const LikeButton = styled.button``;
