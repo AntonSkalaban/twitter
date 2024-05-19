@@ -84,7 +84,7 @@ export const Input = styled.input`
 export const PostWrapper = styled.article`
   display: flex;
   align-items: top;
-  width: 840px;
+  width: 100%;
 `;
 
 export const PostContentContainer = styled.div`

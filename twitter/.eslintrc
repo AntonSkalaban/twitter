@@ -47,7 +47,10 @@
       {
         "groups": [
           ["^react",
-          "^styled-components"],
+          "^styled-components",
+        "^@hookform",
+         "^firebase"
+      ],
           [
            "^@?\\w",
           "^(pages)(/.*|$)",

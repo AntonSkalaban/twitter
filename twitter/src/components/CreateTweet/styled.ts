@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 
-export const PostTextArea = styled.textarea`
+export const TweetTextArea = styled.textarea`
   width: 100%;
-  height: 50px;
+  height: auto;
   max-height: 300px;
 
   border: none;

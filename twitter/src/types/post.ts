@@ -3,6 +3,6 @@ export interface Post {
   userId: string;
   title: string;
   image: string | null;
-  date: string;
   likedUsers: string[];
+  createdAt: number;
 }

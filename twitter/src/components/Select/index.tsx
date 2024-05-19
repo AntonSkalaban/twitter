@@ -1,47 +1,59 @@
-import { useState } from "react";
+import { forwardRef, SelectHTMLAttributes, useState } from "react";
 
+import { ErrorMessage } from "components/UI/ErrorMessage";
 import { useClickOutside } from "hooks";
 import { Option } from "types";
 import VectorIcon from "assets/images/svg/vector.svg?react";
 
 import { SelectBtn, SelectContent, SelectOption, SelectWrapper, StyledSelect } from "./styled";
 
-interface SelectProps {
-  title: string | number;
+interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "onChange"> {
+  title: string;
   options: Option[];
-  onSelect: (option: Option) => void;
+  error?: string;
+  onChange: (value: string) => void;
 }
 
-export const Select: React.FC<SelectProps> = ({ title, options, onSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+  ({ title, options, error, onChange, ...props }, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
 
-  const ref = useClickOutside(() => setIsOpen(false));
+    const selectRef = useClickOutside(() => setIsOpen(false));
 
-  const handleClick = () => {
-    setIsOpen((prev) => !prev);
-  };
+    const handleClick = () => {
+      setIsOpen((prev) => !prev);
+    };
 
-  const hanldeSelect = (value: Option) => () => {
-    onSelect(value);
-  };
-
-  return (
-    <SelectWrapper ref={ref} onClick={handleClick}>
-      <StyledSelect>
-        {title}
-        <SelectBtn>
-          <VectorIcon />
-        </SelectBtn>
-      </StyledSelect>
-      {isOpen && (
-        <SelectContent>
+    return (
+      <div>
+        <select {...props} ref={ref} onChange={(e) => e.target.value} hidden>
           {options.map(({ name, value }) => (
-            <SelectOption key={value} onClick={hanldeSelect({ name, value })}>
+            <option key={value} value={value}>
+              {" "}
               {name}
-            </SelectOption>
+            </option>
           ))}
-        </SelectContent>
-      )}
-    </SelectWrapper>
-  );
-};
+        </select>
+        <SelectWrapper ref={selectRef} onClick={handleClick}>
+          <StyledSelect>
+            {title}
+            <SelectBtn>
+              <VectorIcon />
+            </SelectBtn>
+          </StyledSelect>
+          {isOpen && (
+            <SelectContent>
+              {options.map(({ name, value }) => (
+                <SelectOption key={value} onClick={() => onChange(String(value))}>
+                  {name}
+                </SelectOption>
+              ))}
+            </SelectContent>
+          )}
+        </SelectWrapper>
+
+        <ErrorMessage error={error} />
+      </div>
+    );
+  },
+);

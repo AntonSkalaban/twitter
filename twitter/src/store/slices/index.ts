@@ -1,2 +1,2 @@
-export { default as UserSlice } from "./UserSlice";
-export * from "./UserSlice";
+export { default as userSlice } from "./userSlice";
+export * from "./userSlice";

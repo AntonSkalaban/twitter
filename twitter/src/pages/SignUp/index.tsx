@@ -1,14 +1,22 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
+import { Control, Controller, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-
-import { addUser } from "api/fireStoreApi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Button, Input } from "styled";
+
+import { Button } from "styled";
 import { BitrhDaySelect } from "components/BirthDaySelect.ts";
+import { FormInput } from "components/Form/FormInput";
+import { Modal } from "components/Modal";
+import { PasswordForm } from "components/PasswordForm";
+import { updateUser } from "store/slices";
 import { auth } from "constants/index";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
-import { birthdayText } from "./constansts";
+import { birthdayText, defaultValues, schema } from "./constansts";
+import { FormValues } from "./types";
 import {
   BirthdayContainer,
   SignUpForm,
@@ -20,71 +28,95 @@ import {
 } from "./styled";
 
 export const SignUp: FC = () => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [dateOfBirth, setDateOfBirth] = useState({ month: "", day: "", year: "" });
-
   const navigate = useNavigate();
-  const hanldeNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, "");
-    if (value.length > 11) return;
-    setPhone(value);
+  const dispatch = useDispatch();
+
+  const { control, watch, handleSubmit } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+    defaultValues,
+    mode: "onSubmit",
+  });
+
+  const [isPasswordOpen, setIsPasswordOpen] = useState(false);
+
+  const watchEmail = watch("email");
+
+  const onSubmit = async (data: FormValues) => {
+    const {
+      name,
+      email,
+      phone,
+      birthday: { month, day, year },
+    } = data;
+
+    const date = new Date(+year, +month, +day).toISOString();
+
+    dispatch(updateUser({ name, email, phone, image: null, birth: date }));
+    setIsPasswordOpen(true);
   };
 
-  const hanldeNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setName(value);
-  };
+  const closePasswordForm = () => setIsPasswordOpen(false);
 
-  const hanldeEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setEmail(value);
-  };
+  const hanldePasswordSubmit = async (password: string) => {
+    try {
+      const { user } = await createUserWithEmailAndPassword(auth, watchEmail, password);
+      if (!user) return;
+      dispatch(updateUser({ id: user.uid }));
 
-  const hanldeDateOfBithChanhe = (value: { month?: string; day?: string; year?: string }) => {
-    setDateOfBirth((prev) => ({ ...prev, ...value }));
-  };
-
-  const hanldePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setPassword(value);
-  };
-
-  const hanldeSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const birth = new Date(+dateOfBirth.year, +dateOfBirth.month, +dateOfBirth.day).toISOString();
-    if (name && password && phone && email && birth) {
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
-
-      addUser({ id: user.uid, name, email, phone, birth, image: null });
+      closePasswordForm();
       navigate("/profile");
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        return e.message;
+      }
+      return "Произошла неизвестная ошибка. Пожалуйста, попробуйте еще раз.";
     }
   };
 
   return (
     <SignUpWrapper>
+      {isPasswordOpen && (
+        <Modal close={closePasswordForm}>
+          <PasswordForm onSubmit={hanldePasswordSubmit} />
+        </Modal>
+      )}
+
       <TwitterIcon />
       <SignUpH3>Create an account</SignUpH3>
 
-      <SignUpForm onSubmit={hanldeSubmit}>
+      <SignUpForm onSubmit={handleSubmit(onSubmit)} noValidate>
         <SignUpInpitsContainer>
-          <Input placeholder="Name" value={name} onChange={hanldeNameChange} />
-          <Input
-            type="tel"
-            placeholder="Phone number"
-            value={phone}
-            onChange={hanldeNumberChange}
+          <Controller
+            control={control}
+            name="name"
+            render={({ field, formState }) => (
+              <FormInput {...field} error={formState.errors.name?.message} placeholder="Name" />
+            )}
           />
-          <Input type="email" placeholder="Email" value={email} onChange={hanldeEmailChange} />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={hanldePasswordChange}
+
+          <Controller
+            control={control}
+            name="email"
+            render={({ field, formState }) => (
+              <FormInput {...field} error={formState.errors.email?.message} placeholder="Email" />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field, formState }) => (
+              <FormInput
+                {...field}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  field.onChange(e.target.value.replace(/[^+\d]/g, ""))
+                }
+                error={formState.errors.phone?.message}
+                maxLength={11}
+                type="tel"
+                placeholder="Phone (80XXYYYYYYY)"
+              />
+            )}
           />
         </SignUpInpitsContainer>
 
@@ -94,8 +126,13 @@ export const SignUp: FC = () => {
           <SignUpH4>Date of birth</SignUpH4>
 
           <SignUpP>{birthdayText}</SignUpP>
-
-          <BitrhDaySelect value={dateOfBirth} onSelect={hanldeDateOfBithChanhe} />
+          <BitrhDaySelect
+            control={
+              control as unknown as Control<{
+                birthday: { month: string; year: string; day: string };
+              }>
+            }
+          />
         </BirthdayContainer>
 
         <Button $color="blue">Next</Button>

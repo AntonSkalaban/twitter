@@ -3,12 +3,15 @@ import { User } from "types/user";
 
 const initialState: User = {} as User;
 
-export const UserSlice = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setUser: (state, { payload }: { payload: User }) => {
       return (state = payload);
+    },
+    updateUser: (state, { payload }: { payload: Partial<User> }) => {
+      return (state = { ...state, ...payload });
     },
   },
   selectors: {
@@ -16,7 +19,7 @@ export const UserSlice = createSlice({
   },
 });
 
-export const { setUser } = UserSlice.actions;
-export const { getUser } = UserSlice.selectors;
+export const { setUser, updateUser } = userSlice.actions;
+export const { getUser } = userSlice.selectors;
 
-export default UserSlice.reducer;
+export default userSlice.reducer;

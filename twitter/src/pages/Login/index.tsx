@@ -2,7 +2,7 @@ import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { getUserByField } from "api/fireStoreApi";
+import { getUserByField } from "api";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Button, H2, Input } from "styled";
 import { setUser } from "store/slices";

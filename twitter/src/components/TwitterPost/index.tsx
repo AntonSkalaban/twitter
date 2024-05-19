@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
-import { updatePost } from "api/index";
-import { getUser } from "api/signInWithGoogle";
+import { getUser } from "api";
+import { updatePost } from "api";
 import {
   P,
   PostContentContainer,
@@ -22,7 +22,7 @@ interface PostProps {
 }
 
 export const TwitterPost: FC<PostProps> = ({ post }) => {
-  const { id, userId, title, image, date, likedUsers } = post;
+  const { id, userId, title, image, createdAt, likedUsers } = post;
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const TwitterPost: FC<PostProps> = ({ post }) => {
           <UserInfoContainer>
             <UserName>{user?.name}</UserName>{" "}
             <UserEmail>
-              {user?.name} · {date}
+              {user?.name} · {createdAt}
             </UserEmail>
           </UserInfoContainer>
           <MenuIcon />

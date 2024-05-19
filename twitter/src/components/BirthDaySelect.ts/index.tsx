@@ -1,54 +1,71 @@
 import { FC, useMemo } from "react";
+import { Controller, useWatch } from "react-hook-form";
 
 import { Select } from "components";
-import { Option } from "types";
 
 import { daysInMonth, monthsOptions } from "./constants";
 import { getDaysOptions, getYearsOptions } from "./helpers";
+import { BitrhDaySelectProps } from "./types";
 import { SelectsContainer } from "./styled";
 
-interface BitrhDaySelectProps {
-  value: { month: string; day: string; year: string };
-  onSelect: (value: { month?: string; day?: string; year?: string }) => void;
-}
+export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ control }) => {
+  const { month, day, year } = useWatch({
+    name: "birthday",
+    control,
+  });
 
-export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ value, onSelect }) => {
-  const daysInSelectMonth = daysInMonth[value.month];
+  const daysInSelectMonth = daysInMonth[month];
 
   const daysOtions = useMemo(() => getDaysOptions(daysInSelectMonth || 31), [daysInSelectMonth]);
 
-  const yearsOtions = useMemo(() => {
+  const yearsOptions = useMemo(() => {
     const year = new Date().getFullYear();
-    const isFebruary29 = +value.month === 10 && +value.day === 29;
+    const isFebruary29 = +month === 10 && +day === 29;
 
     return getYearsOptions(year, year - 99, isFebruary29);
-  }, [value.month, value.day]);
-
-  const hanldeMonthSelect = (month: Option) => {
-    if (daysInSelectMonth !== daysInMonth[month.value]) onSelect({ day: "" });
-    onSelect({ month: String(month.value) });
-  };
-
-  const hanldeDaySelect = (day: Option) => {
-    onSelect({ day: String(day.value) });
-  };
-
-  const hanldeYearSelect = (year: Option) => {
-    if (+value.month === 10 && +value.day === 29) {
-      onSelect({ month: "", day: "" });
-    }
-    onSelect({ year: String(year.value) });
-  };
+  }, [month, day]);
 
   return (
     <SelectsContainer>
-      <Select
-        title={value.month ? monthsOptions[+value.month].name : "Month"}
-        options={monthsOptions}
-        onSelect={hanldeMonthSelect}
+      <Controller
+        control={control}
+        name="birthday.month"
+        render={({ field, formState: { errors } }) => (
+          <Select
+            title={month ? monthsOptions[+month].name : "Month"}
+            options={monthsOptions}
+            onChange={(value: string) => field.onChange(value)}
+            error={errors.birthday?.month?.message}
+          />
+        )}
       />
-      <Select title={value.day || "Day"} options={daysOtions} onSelect={hanldeDaySelect} />
-      <Select title={value.year || "Year"} options={yearsOtions} onSelect={hanldeYearSelect} />
+
+      <Controller
+        control={control}
+        name="birthday.day"
+        render={({ field, formState: { errors } }) => (
+          <Select
+            {...field}
+            title={day || "Day"}
+            options={daysOtions}
+            onChange={(value: string) => field.onChange(value)}
+            error={errors.birthday?.day?.message}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="birthday.year"
+        render={({ field, formState: { errors } }) => (
+          <Select
+            title={year || "Year"}
+            options={yearsOptions}
+            onChange={(value: string) => field.onChange(value)}
+            error={errors.birthday?.year?.message}
+          />
+        )}
+      />
     </SelectsContainer>
   );
 };
