@@ -1,23 +1,23 @@
 import { FC } from "react";
 
 import { P } from "styled/StyledComponents";
-import { Post } from "types/post";
+import { Tweet } from "types/index";
 
-import { TwitterPost } from "..";
+import { TweetPost } from "..";
 
 interface PostsContainerProps {
-  posts: Post[];
+  tweets: Tweet[];
   isFetching: boolean;
   error: null | string;
 }
-export const PostsContainer: FC<PostsContainerProps> = ({ posts, error, isFetching }) => {
+export const PostsContainer: FC<PostsContainerProps> = ({ tweets, error, isFetching }) => {
   if (isFetching) return <P>Fetching...</P>;
   if (error) return <P>{error}</P>;
 
   return (
     <>
-      {posts.map((post) => (
-        <TwitterPost key={post.id} post={post} />
+      {tweets.map((tweet) => (
+        <TweetPost key={tweet.id} tweet={tweet} />
       ))}
     </>
   );

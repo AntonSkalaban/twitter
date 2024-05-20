@@ -7,9 +7,8 @@ import { CreateTweet } from "components/CreateTweet";
 import { EditProfile } from "components/EditProfile";
 import { Modal } from "components/Modal";
 import { PostsContainer } from "components/PostsContainer";
-import { getUserPosts } from "store/sagas";
-import { getUser } from "store/slices";
-import { getUserPostsStatus } from "store/slices/postsSlice";
+import { getUserTweetsQuery } from "store/sagas";
+import { getUser, getUserTweets } from "store/slices";
 
 import { ImageContainer, TelegramLink, UserImgContainer, UserInfoContainer } from "./styled";
 
@@ -18,14 +17,14 @@ export const Profile: FC = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(getUser);
-  const { posts, error, isFetching } = useSelector(getUserPostsStatus);
+  const { tweets, error, isFetching } = useSelector(getUserTweets);
 
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (!user.id) return navigate("/");
 
-    dispatch(getUserPosts(user.id));
+    dispatch(getUserTweetsQuery(user.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -60,7 +59,7 @@ export const Profile: FC = () => {
       </UserInfoContainer>
 
       <CreateTweet />
-      <PostsContainer posts={posts} error={error} isFetching={isFetching} />
+      <PostsContainer tweets={tweets} error={error} isFetching={isFetching} />
     </main>
   );
 };

@@ -1,6 +1,7 @@
 import { FC, KeyboardEvent, useEffect, useState } from "react";
 import { Control, Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   Button,
@@ -11,10 +12,11 @@ import {
   UserAvatarContainer,
 } from "styled/StyledComponents";
 import { PostImage } from "components/PostImage";
-import { addPost } from "store/sagas";
+import { createTweetQuery } from "store/sagas";
 import { getUser } from "store/slices";
 import { getAddPostStatus } from "store/slices/addPostSlice";
 
+import { defaultValues, schema } from "./constants";
 import { autoResize } from "./helpers";
 import { CreateTweetFormProps, FormValues } from "./types";
 import { UploadImageButton } from "./UploadImageButton";
@@ -23,13 +25,17 @@ import { TweetTextArea } from "./styled";
 export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
   const dispatch = useDispatch();
 
-  const user = useSelector(getUser);
+  const { id, name, image } = useSelector(getUser);
 
   const { isFetching } = useSelector(getAddPostStatus);
 
   const [base64String, setBase64String] = useState<null | string>(null);
 
-  const { control, handleSubmit, reset, formState } = useForm<FormValues>();
+  const { control, handleSubmit, reset, formState } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+    defaultValues,
+    mode: "onSubmit",
+  });
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -44,19 +50,22 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
 
   const onSubmit = (data: FormValues) => {
     dispatch(
-      addPost({
-        userId: user.id,
-        title: data.title,
-        image: base64String,
-        createdAt: new Date().getTime(),
-        likedUsers: [],
-      }),
+      createTweetQuery(
+        {
+          userId: id,
+          title: data.title,
+          image: base64String,
+          createdAt: new Date().getTime(),
+          likedUsers: [],
+        },
+        { userName: name, userImage: image },
+      ),
     );
   };
 
   return (
     <PostWrapper>
-      <UserAvatarContainer>{user?.image && <UserAvatar src={user?.image} />}</UserAvatarContainer>
+      <UserAvatarContainer>{image && <UserAvatar src={image} />}</UserAvatarContainer>
 
       <PostContentContainer>
         <form onSubmit={handleSubmit(onSubmit)}>

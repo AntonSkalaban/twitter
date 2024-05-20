@@ -1,3 +1,3 @@
 export * from "./Select";
 export * from "./Sidebar";
-export * from "./TwitterPost";
+export * from "./TweetPost";

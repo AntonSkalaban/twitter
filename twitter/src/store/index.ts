@@ -4,13 +4,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import addPostSlice from "./slices/addPostSlice";
 import postsSlice from "./slices/postsSlice";
 import rootSaga from "./sagas";
-import { userSlice } from "./slices";
+import { tweetsSlice, userSlice, userTweetsSlice } from "./slices";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
     user: userSlice,
+    userTweets: userTweetsSlice,
+    tweets: tweetsSlice,
     posts: postsSlice,
     addPost: addPostSlice,
   },

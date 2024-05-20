@@ -1,22 +1,25 @@
 import { takeEvery } from "redux-saga/effects";
-import { Post } from "types/post";
+import { TweetResponce } from "types/post";
 
-import { getAddedPostSaga } from "./getAddedPostSaga";
-import { getTweetsSaga } from "./getTweets";
-import { getUserPostsSaga } from "./getUserPostsSaga";
+import { createTweetSaga } from "./createTweetSaga";
+// import { getUserPostsSaga } from "./getUserPostsSaga";
+import { getUserTweetsSaga } from "./getUserTweets";
 
-export const getUserPosts = (userId: string) => ({
-  type: GET_USER_POSTS,
+export const getUserTweetsQuery = (userId: string) => ({
+  type: GET_USER_TWEETS,
   payload: userId,
 });
 
-export const addPost = (post: Omit<Post, "id">) => ({
-  type: ADD_POST,
-  payload: post,
+export const createTweetQuery = (
+  tweetData: Omit<TweetResponce, "id">,
+  userData: { userName: string; userImage: string | null },
+) => ({
+  type: CREATE_TWEET,
+  payload: { tweetData, userData },
 });
 
-export const GET_USER_POSTS = `posts/getUserPosts`;
-export const ADD_POST = `posts/getUserPostsSaga`;
+export const GET_USER_TWEETS = `tweets/getUserTweetsQuery`;
+export const CREATE_TWEET = `posts/createTweetSaga`;
 
 export const GET_TWEETS = `posts/getTweets`;
 
@@ -25,7 +28,7 @@ export const getTweets = () => ({
 });
 
 export default function* rootSaga() {
-  yield takeEvery(GET_USER_POSTS, getUserPostsSaga);
-  yield takeEvery(ADD_POST, getAddedPostSaga);
-  yield takeEvery(GET_TWEETS, getTweetsSaga);
+  // yield takeEvery(GET_USER_POSTS, getUserPostsSaga);
+  yield takeEvery(CREATE_TWEET, createTweetSaga);
+  yield takeEvery(GET_USER_TWEETS, getUserTweetsSaga);
 }

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { updatePassword } from "firebase/auth";
 
-import { addUserToFirestore, signInWithGoogle, UserApi } from "api";
+import { signInWithGoogle, UserApi } from "api";
 import { H1, H2 } from "styled";
 import { Modal } from "components/Modal";
 import { PasswordForm } from "components/PasswordForm";
@@ -51,7 +51,7 @@ export const Home = () => {
     if (userDoc) {
       navigate("/profile");
     } else {
-      addUserToFirestore(activeUser);
+      UserApi.addUserDoc(activeUser);
       setIsOpen(true);
     }
     dispatch(setUser(activeUser));
