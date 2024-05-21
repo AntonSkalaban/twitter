@@ -13,7 +13,7 @@ export function* getTweetsSaga() {
     const tweets: Tweet[] = [];
 
     for (const tweet of tweetsResponce) {
-      const { name, image }: User = yield call(UserApi.getUserDoc, tweetsResponce[0].userId);
+      const { name, image }: User = yield call(UserApi.getUserDoc, tweet.userId);
       tweets.push({ ...tweet, userName: name, userImg: image } as Tweet);
     }
 

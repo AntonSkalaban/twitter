@@ -98,10 +98,17 @@ export const PostRow = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+const size = {
+  big: 120,
+  medium: 50,
+  small: 26,
+};
 
-export const UserAvatarContainer = styled.div<{ $size?: "big" | "medium" }>`
-  width: ${({ $size }) => ($size === "big" ? 120 : 50)}px;
-  height: ${({ $size }) => ($size === "big" ? 120 : 50)}px;
+type Size = "big" | "medium" | "small";
+
+export const UserAvatarContainer = styled.div<{ $size?: Size }>`
+  width: ${({ $size }) => size[$size || "medium"]}px;
+  height: ${({ $size }) => size[$size || "medium"]}px;
   border-radius: 50%;
   position: relative;
 `;

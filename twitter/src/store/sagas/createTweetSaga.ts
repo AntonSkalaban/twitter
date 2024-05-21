@@ -8,11 +8,11 @@ export function* createTweetSaga(action: {
   type: string;
   payload: { tweetData: Omit<Tweet, "id">; userData: { userName: string; userImg: string } };
 }) {
+  console.log("generator");
   try {
     yield put(addPostRequest());
 
     const tweetId: string = yield call(TweetApi.addTweet, action.payload.tweetData);
-
     yield put(addPostSuccess());
     yield put(
       addUserTweetLoacal({

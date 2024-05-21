@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { MainLayout } from "components/Layout";
 
-import { Home, Login, Profile, SignUp } from "./pages";
+import { Home, Login, Profile, SignUp, TweetPage } from "./pages";
 
 function App() {
   return (
@@ -16,6 +16,14 @@ function App() {
         element={
           <MainLayout>
             <Profile />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/feed/:id"
+        element={
+          <MainLayout>
+            <TweetPage />
           </MainLayout>
         }
       />

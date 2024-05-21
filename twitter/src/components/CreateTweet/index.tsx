@@ -31,7 +31,7 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
 
   const [base64String, setBase64String] = useState<null | string>(null);
 
-  const { control, handleSubmit, reset, formState } = useForm<FormValues>({
+  const { control, handleSubmit, reset, formState, watch } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues,
     mode: "onSubmit",
@@ -40,8 +40,9 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset({ title: "" });
+      setBase64String(null);
+      if (onCreated) onCreated();
     }
-    if (onCreated) onCreated();
   }, [formState.isSubmitSuccessful, onCreated, reset]);
 
   const hanldeKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -85,7 +86,12 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
               onUpload={(value) => setBase64String(value)}
             />
 
-            <Button $width="120px" style={{ height: "50px" }} $color="blue" disabled={isFetching}>
+            <Button
+              $width="120px"
+              style={{ height: "50px" }}
+              $color="blue"
+              disabled={isFetching || !watch("title")}
+            >
               {isFetching ? "Fetching..." : "Tweet"}
             </Button>
           </PostRow>

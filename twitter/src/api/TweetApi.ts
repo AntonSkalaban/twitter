@@ -2,7 +2,9 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
+  limit,
   orderBy,
   query,
   updateDoc,
@@ -13,15 +15,20 @@ import { db } from "constants/index";
 import { Tweet, TweetResponce } from "types/index";
 
 export class TweetApi {
-  static async getTweets(userId?: string) {
-    const q = query(
-      collection(db, "posts"),
-      userId
-        ? (where("userId", "==", userId), orderBy("createdAt", "desc"))
-        : orderBy("createdAt", "desc"),
+  static async getTweet(id: string) {
+    const docRef = doc(db, "posts", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) return docSnap.data() as TweetResponce;
+  }
+
+  static async getTweets(key?: keyof TweetResponce, value?: string) {
+    const querySnapshot = await getDocs(
+      key
+        ? query(collection(db, "posts"), where(key, "==", value), orderBy("createdAt", "desc"))
+        : query(collection(db, "posts"), orderBy("createdAt", "desc")),
     );
 
-    const querySnapshot = await getDocs(q);
     const tweets = querySnapshot.docs.map(
       (doc) =>
         ({
@@ -29,7 +36,30 @@ export class TweetApi {
           ...doc.data(),
         }) as TweetResponce,
     );
+
     return tweets;
+  }
+
+  static async getTweetsWithImage() {
+    const querySnapshot = await getDocs(
+      query(
+        collection(db, "posts"),
+        // where("image", "!=", null),
+        orderBy("createdAt", "desc"),
+        // limit(6),
+        limit(100),
+      ),
+    );
+
+    const tweets = querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as TweetResponce,
+    );
+
+    return tweets.filter(({ image }) => image).slice(0, 6);
   }
 
   static async addTweet(post: Omit<TweetResponce, "id">) {

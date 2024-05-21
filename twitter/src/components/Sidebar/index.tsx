@@ -14,15 +14,15 @@ export const Sidebar: FC = () => {
     setIsOpen(true);
   };
 
-  const hanldeClose = () => {
+  const handleClose = () => {
     setIsOpen(false);
   };
 
   return (
     <SidebarContainer>
       {isOpen && (
-        <Modal close={hanldeClose}>
-          <CreateTweet onCreated={hanldeClose} />
+        <Modal close={handleClose}>
+          <CreateTweet onCreated={handleClose} />
         </Modal>
       )}
 

@@ -8,19 +8,26 @@ import {
 } from "store/slices";
 import { Tweet, TweetResponce, User } from "types/index";
 
-export function* getUserTweetsSaga(action: { type: string; payload: string }) {
+export function* getUserTweetsSaga(action: { type: string; payload: { userId: string } }) {
   try {
     yield put(fetchUserTweetsRequest());
 
-    const tweetsResponce: TweetResponce[] = yield call(TweetApi.getTweets, action.payload);
-
-    const { name, image }: User = yield call(UserApi.getUserDoc, tweetsResponce[0].userId);
-
-    const tweets: Tweet[] = tweetsResponce.map(
-      (tweet) => ({ ...tweet, userName: name, userImg: image }) as Tweet,
+    const tweetsResponce: TweetResponce[] = yield call(
+      TweetApi.getTweets,
+      "userId",
+      action.payload.userId,
     );
 
-    yield put(fetchUserTweetsSuccess(tweets));
+    if (tweetsResponce.length > 0) {
+      const { name, image }: User = yield call(UserApi.getUserDoc, tweetsResponce[0].userId);
+
+      const tweets: Tweet[] = tweetsResponce.map(
+        (tweet) => ({ ...tweet, userName: name, userImg: image }) as Tweet,
+      );
+      yield put(fetchUserTweetsSuccess(tweets));
+    } else {
+      yield put(fetchUserTweetsSuccess([]));
+    }
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown error occurred";
     yield put(fetchUserTweetsFailure(errorMessage));
