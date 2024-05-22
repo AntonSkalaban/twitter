@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import UserAvatarIcon from "assets/images/png/user-avatart.jpeg";
 
-import { inputMixin } from "./Mixin";
+import { borderGreyMixin, inputMixin } from "./Mixin";
 const colors: { [key: string]: string } = { blue: "rgba(29, 161, 242, 1)" };
 
 export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue"; $width?: string }>`
@@ -23,44 +23,44 @@ export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue";
 `;
 
 export const P = styled.p`
-  font-family: "Roboto";
+  /* font-family: "Roboto";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400; */
   font-size: 18px;
   line-height: 21px;
 
-  color: #000000;
+  /* color: #000000; */
 `;
 
 export const H1 = styled.h1`
-  font-family: "Roboto";
-  font-style: normal;
+  /* font-family: "Roboto";
+  font-style: normal; */
   font-weight: 900;
   font-size: 84px;
   line-height: 98px;
 `;
 
 export const H2 = styled.h2`
-  font-family: "Roboto";
-  font-style: normal;
+  /* font-family: "Roboto";
+  font-style: normal; */
   font-weight: 900;
   font-size: 42px;
   line-height: 49px;
 `;
 
 export const H3 = styled.h3`
-  font-family: "Roboto Serif";
-  font-style: normal;
+  /* font-family: "Roboto Serif";
+  font-style: normal; */
   font-weight: 700;
   font-size: 30px;
   line-height: 35px;
 
-  color: #000000;
+  /* color: #000000; */
 `;
 
 export const H4 = styled.h4`
-  font-family: "Roboto Serif";
-  font-style: normal;
+  /* font-family: "Roboto Serif";
+  font-style: normal; */
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;
@@ -69,13 +69,13 @@ export const H4 = styled.h4`
 `;
 
 export const H5 = styled.h5`
-  font-family: "Roboto Serif";
-  font-style: normal;
+  /* font-family: "Roboto Serif";
+  font-style: normal; */
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
 
-  color: #000000;
+  /* color: #000000; */
 `;
 export const Input = styled.input`
   ${inputMixin}
@@ -83,8 +83,12 @@ export const Input = styled.input`
 
 export const PostWrapper = styled.article`
   display: flex;
-  align-items: top;
+  gap: 8px;
+  /* align-items: top; */
   width: 100%;
+  ${borderGreyMixin};
+
+  padding: 18px 12px 13px 27px;
 `;
 
 export const PostContentContainer = styled.div`
@@ -98,6 +102,13 @@ export const PostRow = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const FlexRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const size = {
   big: 120,
   medium: 50,
@@ -130,4 +141,10 @@ export const UserAvatar = styled.img`
     width: 100%;
     height: 100%;
   }
+`;
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

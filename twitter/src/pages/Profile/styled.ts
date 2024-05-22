@@ -1,6 +1,13 @@
 import { styled } from "styled-components";
 
+import { borderGreyMixin, Button } from "styled/index";
+import { UserName } from "components/TweetPreview/styled";
 import Flower from "assets/images/png/flower.png";
+
+export const StyledPage = styled.div`
+  max-width: 920px;
+  height: 100%;
+`;
 
 export const ImageContainer = styled.div`
   width: 910px;
@@ -12,6 +19,8 @@ export const ImageContainer = styled.div`
 export const UserInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
+
+  padding: 10px 25px 10px 25px;
 `;
 
 export const UserImgContainer = styled.div`
@@ -30,4 +39,14 @@ export const TelegramLink = styled.a`
   color: #000000;
 
   opacity: 0.6;
+`;
+
+export const EditButton = styled(Button)`
+  width: 120px;
+  height: 44px;
+  ${borderGreyMixin}
+`;
+
+export const TweetsTitle = styled(UserName)`
+  padding: 15px;
 `;

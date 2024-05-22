@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { TweetApi } from "api/TweetApi";
 import {
   P,
   PostContentContainer,
@@ -11,11 +10,8 @@ import {
   UserAvatarContainer,
 } from "styled";
 import { PostImage } from "components/PostImage";
-import { LikeButton } from "components/TweetPost/LikeButton";
 import { Tweet } from "types";
-import MenuIcon from "assets/images/svg/dot-menu.svg?react";
 
-// import { LikeButton } from "./LikeButton";
 import { UserInfoContainer, UserName } from "./styled";
 
 interface TweetProps {
@@ -24,11 +20,7 @@ interface TweetProps {
 
 export const TweetPreview: FC<TweetProps> = ({ tweet }) => {
   const navigate = useNavigate();
-  const { id, userId, title, image, createdAt, likedUsers, userImg, userName } = tweet;
-
-  //   const hanldeLike = (likedUsers: string[]) => {
-  //     TweetApi.updateTweet(id, { likedUsers });
-  //   };
+  const { id, title, image, userImg, userName } = tweet;
 
   return (
     <PostWrapper onClick={() => navigate(`/feed/${id}`)}>

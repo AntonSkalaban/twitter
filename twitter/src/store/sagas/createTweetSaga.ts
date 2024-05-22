@@ -8,7 +8,6 @@ export function* createTweetSaga(action: {
   type: string;
   payload: { tweetData: Omit<Tweet, "id">; userData: { userName: string; userImg: string } };
 }) {
-  console.log("generator");
   try {
     yield put(addPostRequest());
 

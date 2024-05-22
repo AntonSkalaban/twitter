@@ -7,7 +7,6 @@ import {
   Button,
   PostContentContainer,
   PostRow,
-  PostWrapper,
   UserAvatar,
   UserAvatarContainer,
 } from "styled/StyledComponents";
@@ -20,7 +19,7 @@ import { defaultValues, schema } from "./constants";
 import { autoResize } from "./helpers";
 import { CreateTweetFormProps, FormValues } from "./types";
 import { UploadImageButton } from "./UploadImageButton";
-import { TweetTextArea } from "./styled";
+import { StyledTweetCreator, TweetTextArea } from "./styled";
 
 export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
   const dispatch = useDispatch();
@@ -65,7 +64,7 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
   };
 
   return (
-    <PostWrapper>
+    <StyledTweetCreator>
       <UserAvatarContainer>{image && <UserAvatar src={image} />}</UserAvatarContainer>
 
       <PostContentContainer>
@@ -97,6 +96,6 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
           </PostRow>
         </form>
       </PostContentContainer>
-    </PostWrapper>
+    </StyledTweetCreator>
   );
 };

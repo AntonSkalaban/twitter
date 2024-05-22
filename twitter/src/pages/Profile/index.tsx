@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { Button, H5, P, UserAvatar, UserAvatarContainer } from "styled/index";
+import { H5, P, UserAvatar } from "styled/index";
 import { CreateTweet } from "components/CreateTweet";
 import { EditProfile } from "components/EditProfile";
 import { Modal } from "components/Modal";
@@ -10,7 +10,15 @@ import { PostsContainer } from "components/PostsContainer";
 import { getUserTweetsQuery } from "store/sagas";
 import { getUser, getUserTweets } from "store/slices";
 
-import { ImageContainer, TelegramLink, UserImgContainer, UserInfoContainer } from "./styled";
+import {
+  EditButton,
+  ImageContainer,
+  StyledPage,
+  TelegramLink,
+  TweetsTitle,
+  UserImgContainer,
+  UserInfoContainer,
+} from "./styled";
 
 export const Profile: FC = () => {
   const navigate = useNavigate();
@@ -29,7 +37,7 @@ export const Profile: FC = () => {
   }, []);
 
   return (
-    <main style={{ maxWidth: "920px" }}>
+    <StyledPage>
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
           <EditProfile />
@@ -38,16 +46,14 @@ export const Profile: FC = () => {
 
       <ImageContainer />
       <UserInfoContainer>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <UserImgContainer>
             <UserAvatar
               style={{ position: "absolute", width: "120px", height: "120px", bottom: 0 }}
               src={image || ""}
             />
           </UserImgContainer>
-          <Button $width="120px" onClick={() => setIsOpen(true)}>
-            Edit profile
-          </Button>
+          <EditButton onClick={() => setIsOpen(true)}>Edit profile</EditButton>
         </div>
 
         <H5>{name}</H5>
@@ -56,7 +62,8 @@ export const Profile: FC = () => {
       </UserInfoContainer>
 
       <CreateTweet />
+      <TweetsTitle>Tweets</TweetsTitle>
       <PostsContainer tweets={tweets} error={error} isFetching={isFetching} />
-    </main>
+    </StyledPage>
   );
 };

@@ -4,8 +4,8 @@ import { Button } from "styled/StyledComponents";
 import { CreateTweet } from "components/CreateTweet";
 import { Modal } from "components/Modal";
 
-import { navLinks } from "./constants";
-import { NavContainer, SidebarContainer, StyledNavLink } from "./styled";
+import { Nav } from "./Nav";
+import { SidebarContainer } from "./styled";
 
 export const Sidebar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,13 +26,7 @@ export const Sidebar: FC = () => {
         </Modal>
       )}
 
-      <NavContainer>
-        {navLinks.map(({ name, path }) => (
-          <StyledNavLink key={name} to={path}>
-            {name}
-          </StyledNavLink>
-        ))}
-      </NavContainer>
+      <Nav />
       <Button $color="blue" onClick={createTweet}>
         Tweet
       </Button>

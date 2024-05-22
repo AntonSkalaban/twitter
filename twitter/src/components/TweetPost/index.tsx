@@ -2,7 +2,6 @@ import { FC } from "react";
 
 import { TweetApi } from "api/TweetApi";
 import {
-  P,
   PostContentContainer,
   PostRow,
   PostWrapper,
@@ -14,7 +13,7 @@ import { Tweet } from "types";
 import MenuIcon from "assets/images/svg/dot-menu.svg?react";
 
 import { LikeButton } from "./LikeButton";
-import { UserEmail, UserInfoContainer, UserName } from "./styled";
+import { TweeterText, UserEmail, UserInfoContainer, UserName } from "./styled";
 
 interface TweetProps {
   tweet: Tweet;
@@ -44,7 +43,8 @@ export const TweetPost: FC<TweetProps> = ({ tweet }) => {
           </UserInfoContainer>
           <MenuIcon />
         </PostRow>
-        <P>{title}</P>
+
+        <TweeterText>{title}</TweeterText>
 
         <PostImage image={image} />
 

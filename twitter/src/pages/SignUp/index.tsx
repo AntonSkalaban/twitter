@@ -6,9 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { Button } from "styled";
+import { StyledForm } from "styled";
 import { BitrhDaySelect } from "components/BirthDaySelect.ts";
 import { FormInput } from "components/Form/FormInput";
+import { FormButton } from "components/index";
 import { Modal } from "components/Modal";
 import { PasswordForm } from "components/PasswordForm";
 import { updateUser } from "store/slices";
@@ -19,7 +20,6 @@ import { birthdayText, defaultValues, schema } from "./constansts";
 import { FormValues } from "./types";
 import {
   BirthdayContainer,
-  SignUpForm,
   SignUpH3,
   SignUpH4,
   SignUpInpitsContainer,
@@ -84,7 +84,7 @@ export const SignUp: FC = () => {
       <TwitterIcon />
       <SignUpH3>Create an account</SignUpH3>
 
-      <SignUpForm onSubmit={handleSubmit(onSubmit)} noValidate>
+      <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
         <SignUpInpitsContainer>
           <Controller
             control={control}
@@ -135,8 +135,8 @@ export const SignUp: FC = () => {
           />
         </BirthdayContainer>
 
-        <Button $color="blue">Next</Button>
-      </SignUpForm>
+        <FormButton title="Next" />
+      </StyledForm>
     </SignUpWrapper>
   );
 };

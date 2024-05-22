@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { Controller, useWatch } from "react-hook-form";
 
-import { Select } from "components";
+import { FormSelect } from "components";
 
 import { daysInMonth, monthsOptions } from "./constants";
 import { getDaysOptions, getYearsOptions } from "./helpers";
@@ -31,7 +31,7 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ control }) => {
         control={control}
         name="birthday.month"
         render={({ field, formState: { errors } }) => (
-          <Select
+          <FormSelect
             title={month ? monthsOptions[+month].name : "Month"}
             options={monthsOptions}
             onChange={(value: string) => field.onChange(value)}
@@ -44,7 +44,7 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ control }) => {
         control={control}
         name="birthday.day"
         render={({ field, formState: { errors } }) => (
-          <Select
+          <FormSelect
             {...field}
             title={day || "Day"}
             options={daysOtions}
@@ -58,7 +58,7 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ control }) => {
         control={control}
         name="birthday.year"
         render={({ field, formState: { errors } }) => (
-          <Select
+          <FormSelect
             title={year || "Year"}
             options={yearsOptions}
             onChange={(value: string) => field.onChange(value)}

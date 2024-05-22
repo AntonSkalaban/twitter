@@ -5,7 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { updatePassword, updateProfile } from "firebase/auth";
 
 import { UserApi } from "api/index";
-import { Button, UserAvatar } from "styled/index";
+import { StyledForm, UserAvatar } from "styled/index";
+import { FormButton } from "components/Form/FormButton";
 import { FormImageInput } from "components/Form/FormImageInput";
 import { FormInput } from "components/Form/FormInput";
 import { ErrorMessage } from "components/UI/ErrorMessage";
@@ -66,7 +67,7 @@ export const EditProfile: FC = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <div style={{ width: "120px", height: "120px" }} onClick={handleImageUpload}>
           <UserAvatar src={base64String || ""} />
         </div>
@@ -122,8 +123,8 @@ export const EditProfile: FC = () => {
           )}
         />
         <ErrorMessage error={errorMessage} />
-        <Button disabled={isFetching}>Save</Button>
-      </form>
+        <FormButton title="Save" isFetching={isFetching} />
+      </StyledForm>
     </div>
   );
 };

@@ -6,6 +6,7 @@ export const TweetsImagesContainer = styled.div`
   grid-template-rows: repeat(2, 88px);
   gap: 2px;
 
+  overflow: hidden;
   border-radius: 10px;
 `;
 

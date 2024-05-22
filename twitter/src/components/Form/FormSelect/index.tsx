@@ -1,20 +1,13 @@
-import { forwardRef, SelectHTMLAttributes, useState } from "react";
+import { forwardRef, useState } from "react";
 
 import { ErrorMessage } from "components/UI/ErrorMessage";
 import { useClickOutside } from "hooks";
-import { Option } from "types";
 import VectorIcon from "assets/images/svg/vector.svg?react";
 
+import { FormSelectProps } from "./types";
 import { SelectBtn, SelectContent, SelectOption, SelectWrapper, StyledSelect } from "./styled";
 
-interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "onChange"> {
-  title: string;
-  options: Option[];
-  error?: string;
-  onChange: (value: string) => void;
-}
-
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
   ({ title, options, error, onChange, ...props }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -22,6 +15,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     const handleClick = () => {
       setIsOpen((prev) => !prev);
+    };
+
+    const handleSelect = (value: string | number) => () => {
+      onChange(String(value));
     };
 
     return (
@@ -44,7 +41,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {isOpen && (
             <SelectContent>
               {options.map(({ name, value }) => (
-                <SelectOption key={value} onClick={() => onChange(String(value))}>
+                <SelectOption key={value} onClick={handleSelect(value)}>
                   {name}
                 </SelectOption>
               ))}

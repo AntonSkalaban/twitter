@@ -5,20 +5,17 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import { store } from "./store";
-import { GlobalStyles, NormalStyles } from "./styled";
 
 const root = document.getElementById("root");
 
 if (root) {
   ReactDOM.createRoot(root).render(
     <StrictMode>
-      <BrowserRouter>
-        <NormalStyles />
-        <GlobalStyles />
-        <Provider store={store}>
+      <Provider store={store}>
+        <BrowserRouter>
           <App />
-        </Provider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     </StrictMode>,
   );
 }

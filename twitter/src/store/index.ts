@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import addPostSlice from "./slices/addPostSlice";
 import postsSlice from "./slices/postsSlice";
 import rootSaga from "./sagas";
-import { searchedTweetsSlice, tweetsSlice, userSlice, userTweetsSlice } from "./slices";
+import { searchedTweetsSlice, themeSlice, tweetsSlice, userSlice, userTweetsSlice } from "./slices";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,6 +16,7 @@ export const store = configureStore({
     tweets: tweetsSlice,
     posts: postsSlice,
     addPost: addPostSlice,
+    theme: themeSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
 });

@@ -1,0 +1,49 @@
+import { DefaultTheme } from "styled-components";
+
+import { Theme, ThemeEnum } from "types";
+
+export const baseTheme: Theme = {
+  colors: {
+    white: "rgba(255, 255, 255, 1)",
+    black: "rgba(0, 0, 0, 1)",
+    lightBlack: "rgba(0, 0, 0, 0.85)",
+    grey: "rgba(0, 0, 0, 0.2)",
+    darkGrey: "rgba(130, 130, 130, 1)",
+  },
+
+  media: {
+    large: "(max-width: 1110px)",
+    medium: "(max-width: 880px)",
+    small: "(max-width: 660px)",
+    extraSmall: "(max-width: 460px)",
+  },
+};
+
+export const lightTheme: DefaultTheme = {
+  ...baseTheme,
+  type: ThemeEnum.light,
+
+  fonts: {
+    main: baseTheme.colors.black,
+    secondary: baseTheme.colors.darkGrey,
+  },
+  bg: {
+    main: baseTheme.colors.white,
+  },
+  //   colors: {},
+};
+
+export const darkTheme: DefaultTheme = {
+  ...baseTheme,
+  type: ThemeEnum.dark,
+
+  fonts: {
+    main: baseTheme.colors.white,
+    secondary: baseTheme.colors.darkGrey,
+  },
+  bg: {
+    main: baseTheme.colors.lightBlack,
+  },
+
+  //   colors: {},
+};

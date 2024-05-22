@@ -1,17 +1,32 @@
 import { styled } from "styled-components";
 
+import { borderGreyMixin } from "styled/index";
+
+import { PostWrapper } from "./../../styled/StyledComponents";
+
+export const StyledTweetCreator = styled(PostWrapper)`
+  /* ${borderGreyMixin};
+
+  padding: 18px 12px 13px 27px; */
+`;
+
 export const TweetTextArea = styled.textarea`
   width: 100%;
   height: auto;
   max-height: 300px;
 
   border: none;
-  font-family: "Roboto";
-  font-style: normal;
+  /* font-family: "Roboto";
+  font-style: normal; */
   font-weight: 600;
   font-size: 22px;
   line-height: 26px;
 
-  color: #828282;
+  color: ${({ theme }) => theme.fonts.secondary};
   resize: none;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
 `;

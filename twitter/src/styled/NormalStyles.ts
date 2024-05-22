@@ -12,6 +12,11 @@ ol {
   padding: 0;
 }
 
+main {
+  padding: 0;
+  min-height: 100vh;
+}
+
 body,
 h1,
 h2,

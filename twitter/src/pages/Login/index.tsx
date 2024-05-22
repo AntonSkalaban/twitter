@@ -6,15 +6,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { UserApi } from "api/UserApi";
-import { Button, H2 } from "styled";
+import { H2, StyledForm } from "styled";
 import { FormInput } from "components/Form/FormInput";
+import { FormButton } from "components/index";
 import { setUser } from "store/slices";
 import { auth } from "constants/index";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
 import { defaultValues, schema, telRegExp } from "./constants";
 import { FormValues } from "./types";
-import { LoginForm, LoginWrapper } from "./styled";
+import { LoginWrapper } from "./styled";
 
 export const Login: FC = () => {
   const { control, handleSubmit } = useForm<FormValues>({
@@ -53,7 +54,8 @@ export const Login: FC = () => {
     <LoginWrapper>
       <TwitterIcon />
       <H2>Log in to Twitter</H2>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="emailOrPhone"
@@ -79,8 +81,8 @@ export const Login: FC = () => {
           )}
         />
 
-        <Button $color="blue">Log in</Button>
-      </LoginForm>
+        <FormButton title="Log in" />
+      </StyledForm>
       <NavLink to={"/sign-up"} style={{ textAlign: "end" }}>
         Sign up to Twitter
       </NavLink>
