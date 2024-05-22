@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { createPortal } from "react-dom";
 
-import { Overlay } from "../Overlay/index";
+import { Overlay } from "styled/StyledComponents";
+
 import { StyledCloseBtn, StyledModalContainer, StyledModalContent } from "./styled";
 
 interface ModalProps {

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 
-import { PostsContainer } from "components/PostsContainer";
+import { TweetsList } from "components/TweetsList";
 import { getSearchedTweets } from "store/slices";
 
 import { Searchbar } from "./Searchbar";
@@ -14,7 +14,7 @@ export const SidebarRight: FC = () => {
   return (
     <StyledSidebar>
       <Searchbar />
-      <PostsContainer tweets={tweets} isFetching={isFetching} error={null} size="small" />
+      <TweetsList tweets={tweets} isFetching={isFetching} error={null} size="small" />
       {!tweets.length && <TweetsImages />}
     </StyledSidebar>
   );

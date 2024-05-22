@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+import { Feed } from "pages/Feed";
 import { MainLayout } from "components/Layout";
 import { getTheme } from "store/slices";
 
@@ -26,6 +27,15 @@ function App() {
           element={
             <MainLayout>
               <Profile />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/feed"
+          element={
+            <MainLayout>
+              <Feed />
             </MainLayout>
           }
         />

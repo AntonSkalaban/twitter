@@ -15,3 +15,10 @@ export const inputMixin = css`
 
   cursor: pointer;
 `;
+
+export const greyTextMixin = css`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: ${({ theme }) => theme.fonts.secondary};
+`;

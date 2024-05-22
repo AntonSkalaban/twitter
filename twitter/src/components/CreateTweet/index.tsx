@@ -5,12 +5,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   Button,
-  PostContentContainer,
-  PostRow,
+  FlexRow,
+  StyledTweet,
+  TweetContent,
   UserAvatar,
   UserAvatarContainer,
 } from "styled/StyledComponents";
-import { PostImage } from "components/PostImage";
+import { TweetImage } from "components/Tweet/TweetImage";
 import { createTweetQuery } from "store/sagas";
 import { getUser } from "store/slices";
 import { getAddPostStatus } from "store/slices/addPostSlice";
@@ -19,7 +20,7 @@ import { defaultValues, schema } from "./constants";
 import { autoResize } from "./helpers";
 import { CreateTweetFormProps, FormValues } from "./types";
 import { UploadImageButton } from "./UploadImageButton";
-import { StyledTweetCreator, TweetTextArea } from "./styled";
+import { TweetTextArea } from "./styled";
 
 export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
   const dispatch = useDispatch();
@@ -64,10 +65,10 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
   };
 
   return (
-    <StyledTweetCreator>
+    <StyledTweet>
       <UserAvatarContainer>{image && <UserAvatar src={image} />}</UserAvatarContainer>
 
-      <PostContentContainer>
+      <TweetContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}
@@ -77,9 +78,9 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
             )}
           />
 
-          <PostImage image={base64String} />
+          <TweetImage image={base64String} />
 
-          <PostRow>
+          <FlexRow>
             <UploadImageButton
               control={control as unknown as Control<{ image: string }>}
               onUpload={(value) => setBase64String(value)}
@@ -93,9 +94,9 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
             >
               {isFetching ? "Fetching..." : "Tweet"}
             </Button>
-          </PostRow>
+          </FlexRow>
         </form>
-      </PostContentContainer>
-    </StyledTweetCreator>
+      </TweetContent>
+    </StyledTweet>
   );
 };

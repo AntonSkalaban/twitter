@@ -1,3 +1,3 @@
 export * from "./Form";
 export * from "./Sidebar";
-export * from "./TweetPost";
+export * from "./Tweet/TweetBig";

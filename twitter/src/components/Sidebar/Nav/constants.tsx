@@ -9,15 +9,23 @@ export const logos = {
 
 export const navLinks = [
   { name: PageNamesEnum.Home, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Home },
-  { name: PageNamesEnum.Explore, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Home },
+  { name: PageNamesEnum.Explore, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Explore },
   {
     name: PageNamesEnum.Notifications,
     logo: logos[PageNamesEnum.Explore],
-    path: PagePathsEnum.Home,
+    path: PagePathsEnum.Notifications,
   },
-  { name: PageNamesEnum.Messages, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Home },
-  { name: PageNamesEnum.Bookmarks, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Home },
-  { name: PageNamesEnum.Lists, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Home },
+  {
+    name: PageNamesEnum.Messages,
+    logo: logos[PageNamesEnum.Explore],
+    path: PagePathsEnum.Messages,
+  },
+  {
+    name: PageNamesEnum.Bookmarks,
+    logo: logos[PageNamesEnum.Explore],
+    path: PagePathsEnum.Bookmarks,
+  },
+  { name: PageNamesEnum.Lists, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Lists },
   { name: PageNamesEnum.Profile, logo: logos[PageNamesEnum.Profile], path: PagePathsEnum.Profile },
-  { name: PageNamesEnum.More, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.Home },
+  { name: PageNamesEnum.More, logo: logos[PageNamesEnum.Explore], path: PagePathsEnum.More },
 ];

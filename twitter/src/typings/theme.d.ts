@@ -13,5 +13,8 @@ declare module "styled-components" {
     bg: {
       main: string;
     };
+    svg: {
+      color: string;
+    };
   }
 }

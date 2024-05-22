@@ -7,6 +7,8 @@ export const PageContainer = styled.div`
 `;
 
 export const StyledMain = styled.main`
+  width: 100%;
+  max-width: 910px;
   ${borderGreyMixin};
 `;
 export const TopRow = styled(FlexRow)`

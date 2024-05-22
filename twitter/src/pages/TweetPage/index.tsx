@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 
-import { TweetPost } from "components/TweetPost";
+import { TweetBig } from "components/index";
 
 import { useTweetQuery } from "./hook";
 
@@ -16,7 +16,7 @@ export const TweetPage: FC = () => {
 
   return (
     <main style={{ maxWidth: "920px" }}>
-      <TweetPost tweet={tweet} />
+      <TweetBig tweet={tweet} />
     </main>
   );
 };

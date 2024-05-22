@@ -30,6 +30,9 @@ export const lightTheme: DefaultTheme = {
   bg: {
     main: baseTheme.colors.white,
   },
+  svg: {
+    color: baseTheme.colors.black,
+  },
   //   colors: {},
 };
 
@@ -43,6 +46,10 @@ export const darkTheme: DefaultTheme = {
   },
   bg: {
     main: baseTheme.colors.lightBlack,
+  },
+
+  svg: {
+    color: baseTheme.colors.white,
   },
 
   //   colors: {},

@@ -1,14 +1,13 @@
 import { styled } from "styled-components";
 
-import { borderGreyMixin } from "styled/index";
+// export const CreateTweetContent = styled(TweetContent)`
+//   /* display: flex;
+//   gap: 8px;
+//   width: 100%;
+//   ${borderGreyMixin};
 
-import { PostWrapper } from "./../../styled/StyledComponents";
-
-export const StyledTweetCreator = styled(PostWrapper)`
-  /* ${borderGreyMixin};
-
-  padding: 18px 12px 13px 27px; */
-`;
+//   padding: 18px 12px 13px 27px;
+// `; */
 
 export const TweetTextArea = styled.textarea`
   width: 100%;

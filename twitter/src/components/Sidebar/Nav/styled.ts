@@ -10,22 +10,20 @@ export const StyledNav = styled.nav`
 `;
 
 export const StyledNavLink = styled(NavLink)`
-  font-family: "Roboto";
-  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
-
-  color: #000000;
 
   display: flex;
   align-items: center;
   gap: 10px;
 
+  color: ${({ theme }) => theme.fonts.main};
+
   &.active {
     font-weight: 700;
-    svg {
-      fill: red;
+    svg path {
+      fill: ${({ theme }) => theme.svg.color};
     }
   }
 `;

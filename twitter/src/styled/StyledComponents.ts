@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import UserAvatarIcon from "assets/images/png/user-avatart.jpeg";
 
-import { borderGreyMixin, inputMixin } from "./Mixin";
+import { borderGreyMixin, greyTextMixin, inputMixin } from "./Mixin";
 const colors: { [key: string]: string } = { blue: "rgba(29, 161, 242, 1)" };
 
 export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue"; $width?: string }>`
@@ -81,32 +81,42 @@ export const Input = styled.input`
   ${inputMixin}
 `;
 
-export const PostWrapper = styled.article`
+export const StyledPage = styled.div`
+  max-width: 920px;
+  width: 100%;
+  height: 100%;
+`;
+
+export const StyledTweet = styled.article`
+  width: 100%;
+
   display: flex;
   gap: 8px;
-  /* align-items: top; */
-  width: 100%;
+
   ${borderGreyMixin};
 
   padding: 18px 12px 13px 27px;
 `;
 
-export const PostContentContainer = styled.div`
+export const LinkGrey = styled.a`
+  ${greyTextMixin}
+`;
+
+export const PGrey = styled.p`
+  ${greyTextMixin}
+`;
+
+export const TweetContent = styled.div`
   width: calc(100% - 50px);
   height: 100%;
   margin: 0;
-`;
-
-export const PostRow = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
 `;
 
 export const FlexRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const size = {
@@ -147,4 +157,22 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+`;
+
+export const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: 1400px;
+  height: 100%;
+  box-sizing: content-box;
+  padding: 0 10px 0 10px;
+`;
+
+export const Overlay = styled.section`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
 `;
