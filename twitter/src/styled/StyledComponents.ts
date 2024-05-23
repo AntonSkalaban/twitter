@@ -23,60 +23,40 @@ export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue";
 `;
 
 export const P = styled.p`
-  /* font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400; */
   font-size: 18px;
   line-height: 21px;
-
-  /* color: #000000; */
 `;
 
 export const H1 = styled.h1`
-  /* font-family: "Roboto";
-  font-style: normal; */
   font-weight: 900;
   font-size: 84px;
   line-height: 98px;
 `;
 
 export const H2 = styled.h2`
-  /* font-family: "Roboto";
-  font-style: normal; */
   font-weight: 900;
   font-size: 42px;
   line-height: 49px;
 `;
 
 export const H3 = styled.h3`
-  /* font-family: "Roboto Serif";
-  font-style: normal; */
   font-weight: 700;
   font-size: 30px;
   line-height: 35px;
-
-  /* color: #000000; */
 `;
 
 export const H4 = styled.h4`
-  /* font-family: "Roboto Serif";
-  font-style: normal; */
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;
-
-  color: #000000;
 `;
 
 export const H5 = styled.h5`
-  /* font-family: "Roboto Serif";
-  font-style: normal; */
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
-
-  /* color: #000000; */
 `;
+
 export const Input = styled.input`
   ${inputMixin}
 `;
@@ -94,6 +74,8 @@ export const StyledTweet = styled.article`
   gap: 8px;
 
   ${borderGreyMixin};
+  border-left: none;
+  border-right: none;
 
   padding: 18px 12px 13px 27px;
 `;

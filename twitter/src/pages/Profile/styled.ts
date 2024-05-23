@@ -5,7 +5,7 @@ import { UserName } from "components/Tweet/TweetSmall/styled";
 import Flower from "assets/images/png/flower.png";
 
 export const ImageContainer = styled.div`
-  width: 910px;
+  width: 100%;
   height: 280px;
 
   background: url(${Flower});

@@ -16,20 +16,28 @@ export const useEditUser = (currentUser: User) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const trigger = async (data: FormValues, base64String: string | null) => {
-    const { name, password } = data;
+    const { name, password, birthday } = data;
+    let newBirthday;
+    if (birthday)
+      newBirthday = new Date(+birthday.year, +birthday.month, +birthday.day).toISOString();
+
     if (!auth.currentUser) return;
 
     try {
       setErrorMessage("");
       setIsFetching(true);
-      if (currentUser.name !== name || currentUser.image !== base64String) {
+      if (
+        currentUser.name !== name ||
+        currentUser.image !== base64String ||
+        currentUser.birth !== newBirthday
+      ) {
         await updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: base64String,
         });
 
         await UserApi.updateUserDoc(currentUser.id, { name, image: base64String });
-        dispatch(updateUser({ name, image: base64String }));
+        dispatch(updateUser({ name, image: base64String, birth: newBirthday }));
       }
 
       if (password) {

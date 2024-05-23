@@ -15,8 +15,7 @@ export const StyledSearchbar = styled.div`
 
 export const SearchInput = styled.input`
   width: 90%;
-  font-family: "Roboto";
-  font-style: normal;
+
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
@@ -25,6 +24,8 @@ export const SearchInput = styled.input`
   color: #5c6c79;
 
   padding-left: 30px;
+  outline: none;
+  border: none;
 `;
 
 export const SearchButton = styled.button`

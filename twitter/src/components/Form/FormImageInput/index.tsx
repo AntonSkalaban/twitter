@@ -25,6 +25,7 @@ export const FormImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
       if (!files) return;
 
       const uploadedFile = files[0];
+      if (uploadedFile.size > 1048576) return;
       const base64String = (await convertImageToBase64(uploadedFile)) as string;
 
       onUpload(base64String);
@@ -35,7 +36,14 @@ export const FormImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
         name={name}
         control={control}
         render={({ field }) => (
-          <input {...field} ref={inputRef} type="file" onChange={uploadImageDisplay} hidden />
+          <input
+            {...field}
+            ref={inputRef}
+            type="file"
+            onChange={uploadImageDisplay}
+            accept=".jpg, .png"
+            hidden
+          />
         )}
       />
     );

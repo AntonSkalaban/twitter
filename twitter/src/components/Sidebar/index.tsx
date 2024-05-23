@@ -28,7 +28,7 @@ export const Sidebar: FC = () => {
 
       <Nav />
       <Button $color="blue" onClick={createTweet}>
-        Tweet
+        <span>Tweet</span>
       </Button>
     </SidebarContainer>
   );

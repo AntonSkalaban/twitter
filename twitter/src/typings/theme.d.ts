@@ -1,11 +1,10 @@
-import { DefaultColors, ThemeEnum } from "types";
+import { Theme, ThemeEnum } from "./../types/theme";
 
 import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {
     type: ThemeEnum;
-    colors: DefaultColors;
     fonts: {
       main: string;
       secondary: string;

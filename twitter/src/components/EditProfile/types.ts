@@ -4,9 +4,9 @@ export interface FormValues {
   email: string;
   phone?: string;
   birthday?: {
-    month?: string;
-    year?: string;
-    day?: string;
+    month: string;
+    year: string;
+    day: string;
   };
   password?: string;
 }

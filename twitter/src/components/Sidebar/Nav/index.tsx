@@ -8,7 +8,7 @@ export const Nav: FC = () => {
     <StyledNav>
       {navLinks.map(({ name, logo, path }) => (
         <StyledNavLink key={name} to={"/" + path}>
-          {logo} {name}
+          {logo} <span>{name}</span>
         </StyledNavLink>
       ))}
     </StyledNav>

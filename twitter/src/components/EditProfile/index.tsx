@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { StyledForm, UserAvatar } from "styled/index";
+import { BitrhDaySelect } from "components/BirthDaySelect.ts";
 import { FormButton } from "components/Form/FormButton";
 import { FormImageInput } from "components/Form/FormImageInput";
 import { FormInput } from "components/Form/FormInput";
@@ -14,13 +15,12 @@ import { schema } from "./constansts";
 import { getDefaultValues } from "./helpers";
 import { useEditUser } from "./hook";
 import { FormValues } from "./types";
+import { AvatarContainer } from "./styled";
 
 export const EditProfile: FC = () => {
-  // const dispatch = useDispatch();
   const user = useSelector(getUser);
 
   const { isFetching, errorMessage, trigger } = useEditUser(user);
-  // const user = useSelector(getUser);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,9 +31,6 @@ export const EditProfile: FC = () => {
     defaultValues: getDefaultValues(user),
   });
 
-  // const [isFetching, setIsFetching] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
-
   const handleImageUpload = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     imageInputRef.current?.click();
@@ -41,34 +38,14 @@ export const EditProfile: FC = () => {
 
   const onSubmit = async (data: FormValues) => {
     trigger(data, base64String);
-    // const { name, password } = data;
-    // if (!auth.currentUser) return;
-    // try {
-    //   setErrorMessage("");
-    //   setIsFetching(true);
-    //   if (user.name !== name || user.image !== base64String) {
-    //     await updateProfile(auth.currentUser, {
-    //       displayName: name,
-    //       photoURL: base64String,
-    //     });
-    //     await UserApi.updateUserDoc(user.id, { name, image: base64String });
-    //     dispatch(updateUser({ name, image: base64String }));
-    //   }
-    //   if (password) {
-    //     updatePassword(auth.currentUser, password);
-    //   }
-    // } catch (e) {
-    //   setErrorMessage("fbError");
-    // }
-    // setIsFetching(false);
   };
 
   return (
     <div>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ width: "120px", height: "120px" }} onClick={handleImageUpload}>
+        <AvatarContainer onClick={handleImageUpload}>
           <UserAvatar src={base64String || ""} />
-        </div>
+        </AvatarContainer>
 
         <FormImageInput
           name="image"
@@ -121,6 +98,14 @@ export const EditProfile: FC = () => {
           )}
         />
         <ErrorMessage error={errorMessage} />
+
+        <BitrhDaySelect
+          control={
+            control as unknown as Control<{
+              birthday: { month: string; year: string; day: string };
+            }>
+          }
+        />
         <FormButton title="Save" isFetching={isFetching} />
       </StyledForm>
     </div>

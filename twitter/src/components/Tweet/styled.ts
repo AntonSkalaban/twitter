@@ -12,11 +12,7 @@ export const UserName = styled.p`
   font-size: 20px;
   line-height: 23px;
 
-  color: ${({ theme }) => theme.fonts.main};
-`;
-
-export const UserEmail = styled(P)`
-  text-align: left;
+  margin-right: 10px;
 `;
 
 export const TweetText = styled(P)`

@@ -26,4 +26,10 @@ export const StyledNavLink = styled(NavLink)`
       fill: ${({ theme }) => theme.svg.color};
     }
   }
+
+  @media ${({ theme }) => theme.media.large} {
+    span {
+      display: none;
+    }
+  }
 `;
