@@ -8,6 +8,7 @@ export interface Colors {
   black: string;
   grey: string;
   darkGrey: string;
+  lightGrey: string;
   lightBlack: string;
 }
 

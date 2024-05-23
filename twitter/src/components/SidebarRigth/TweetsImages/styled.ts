@@ -8,6 +8,8 @@ export const TweetsImagesContainer = styled.div`
 
   overflow: hidden;
   border-radius: 10px;
+
+  margin: 15px 15px 0 15px;
 `;
 
 export const TweetImage = styled.div<{ $image: string }>`

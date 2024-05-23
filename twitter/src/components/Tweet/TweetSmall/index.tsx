@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { StyledTweet, TweetContent, UserAvatar, UserAvatarContainer } from "styled";
+import { UserAvatar, UserAvatarContainer } from "styled";
 import { PagePathsEnum } from "types";
 
-import { TweetText } from "../styled";
+import { StyledTweet, TweetContent, TweetText } from "../styled";
 import { TweetHeader } from "../TweetHeader";
 import { TweetImage } from "../TweetImage";
 import { TweetSmallProps } from "./types";

@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { StyledPage } from "styled/index";
-import { CreateTweet } from "components/CreateTweet";
+import { CreateTweet } from "components/Tweet/CreateTweet";
 import { TweetsList } from "components/TweetsList";
 import { getTweetsQuery } from "store/sagas";
 import { getTweets } from "store/slices";
@@ -15,6 +15,7 @@ export const Feed: FC = () => {
     dispatch(getTweetsQuery());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <StyledPage>
       {" "}

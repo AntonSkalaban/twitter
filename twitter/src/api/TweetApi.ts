@@ -23,11 +23,11 @@ export class TweetApi {
   }
 
   static async getTweets(key?: keyof TweetResponce, value?: string) {
-    const querySnapshot = await getDocs(
-      key
-        ? query(collection(db, "posts"), where(key, "==", value), orderBy("createdAt", "desc"))
-        : query(collection(db, "posts"), orderBy("createdAt", "desc")),
-    );
+    const q = key
+      ? query(collection(db, "posts"), where(key, "==", value), orderBy("createdAt", "desc"))
+      : query(collection(db, "posts"), orderBy("createdAt", "desc"));
+
+    const querySnapshot = await getDocs(q);
 
     const tweets = querySnapshot.docs.map(
       (doc) =>
@@ -42,13 +42,7 @@ export class TweetApi {
 
   static async getTweetsWithImage() {
     const querySnapshot = await getDocs(
-      query(
-        collection(db, "posts"),
-        // where("image", "!=", null),
-        orderBy("createdAt", "desc"),
-        // limit(6),
-        limit(100),
-      ),
+      query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100)),
     );
 
     const tweets = querySnapshot.docs.map(

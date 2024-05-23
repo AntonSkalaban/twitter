@@ -15,6 +15,7 @@ export const TweetsImages: FC = () => {
 
   if (isFetching) return <p>Fetching...</p>;
   if (error) return <p>Error: {error}</p>;
+  if (!tweets.length) return null;
 
   return (
     <TweetsImagesContainer>

@@ -16,10 +16,14 @@ export const useEditUser = (currentUser: User) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const trigger = async (data: FormValues, base64String: string | null) => {
-    const { name, password, birthday } = data;
+    const {
+      name,
+      password,
+      birthday: { year, month, day },
+    } = data;
+
     let newBirthday;
-    if (birthday)
-      newBirthday = new Date(+birthday.year, +birthday.month, +birthday.day).toISOString();
+    if (month && year && day) newBirthday = new Date(+year, +month, +day).toISOString();
 
     if (!auth.currentUser) return;
 

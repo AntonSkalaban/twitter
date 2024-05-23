@@ -13,13 +13,16 @@ export const userSlice = createSlice({
     updateUser: (state, { payload }: { payload: Partial<User> }) => {
       return (state = { ...state, ...payload });
     },
+    removeUser: () => {
+      return {} as User;
+    },
   },
   selectors: {
     getUser: (state) => state,
   },
 });
 
-export const { setUser, updateUser } = userSlice.actions;
+export const { setUser, updateUser, removeUser } = userSlice.actions;
 export const { getUser } = userSlice.selectors;
 
 export default userSlice.reducer;

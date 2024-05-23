@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { getSearchedTweetsQuery } from "store/sagas";
+import { getSearchedTweetsQuery, getSearchedUsersQuery } from "store/sagas";
 import SearchIcon from "assets/images/svg/search.svg?react";
 
 import { SearchButton, SearchInput, StyledSearchbar } from "./styled";
@@ -12,6 +12,7 @@ export const Searchbar: FC = () => {
 
   const getTweets = async () => {
     dispatch(getSearchedTweetsQuery(value));
+    dispatch(getSearchedUsersQuery(value));
   };
 
   const hanldeChange = (e: ChangeEvent<HTMLInputElement>) => {

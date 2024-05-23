@@ -7,6 +7,13 @@ export const StyledNav = styled.nav`
   align-items: flex-start;
   padding: 0px;
   gap: 30px;
+
+  @media ${({ theme }) => theme.media.extraSmall} {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+  }
 `;
 
 export const StyledNavLink = styled(NavLink)`

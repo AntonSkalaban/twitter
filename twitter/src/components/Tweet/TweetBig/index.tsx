@@ -1,10 +1,10 @@
 import { FC } from "react";
 
 import { TweetApi } from "api/TweetApi";
-import { StyledTweet, TweetContent, UserAvatar, UserAvatarContainer } from "styled";
+import { UserAvatar, UserAvatarContainer } from "styled";
 import { TweetHeader } from "components/Tweet/TweetHeader";
 
-import { TweetText } from "../styled";
+import { StyledTweet, TweetContent, TweetText } from "../styled";
 import { TweetImage } from "../TweetImage";
 import { LikeButton } from "./LikeButton";
 import { TweetBigProps } from "./types";

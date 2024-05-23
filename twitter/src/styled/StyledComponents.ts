@@ -1,11 +1,19 @@
 import styled from "styled-components";
 
+import { baseTheme } from "constants/theme";
 import UserAvatarIcon from "assets/images/png/user-avatart.jpeg";
 
-import { borderGreyMixin, greyTextMixin, inputMixin } from "./Mixin";
-const colors: { [key: string]: string } = { blue: "rgba(29, 161, 242, 1)" };
+import { greyTextMixin, inputMixin } from "./Mixin";
+const colors: { [key: string]: string } = {
+  blue: "rgba(29, 161, 242, 1)",
+  grey: baseTheme.colors.grey,
+};
 
-export const Button = styled.button<{ $size?: "big" | "medium"; $color?: "blue"; $width?: string }>`
+export const Button = styled.button<{
+  $size?: "big" | "medium";
+  $color?: "blue" | "grey";
+  $width?: string;
+}>`
   width: ${({ $width }) => $width || "100%"};
   height: 62px;
 
@@ -67,33 +75,6 @@ export const StyledPage = styled.div`
   height: 100%;
 `;
 
-export const StyledTweet = styled.article`
-  width: 100%;
-
-  display: flex;
-  gap: 8px;
-
-  ${borderGreyMixin};
-  border-left: none;
-  border-right: none;
-
-  padding: 18px 12px 13px 27px;
-`;
-
-export const LinkGrey = styled.a`
-  ${greyTextMixin}
-`;
-
-export const PGrey = styled.p`
-  ${greyTextMixin}
-`;
-
-export const TweetContent = styled.div`
-  width: calc(100% - 50px);
-  height: 100%;
-  margin: 0;
-`;
-
 export const FlexRow = styled.div`
   width: 100%;
   display: flex;
@@ -116,6 +97,13 @@ export const UserAvatarContainer = styled.div<{ $size?: Size }>`
   position: relative;
 `;
 
+export const LinkGrey = styled.a`
+  ${greyTextMixin}
+`;
+
+export const PGrey = styled.p`
+  ${greyTextMixin}
+`;
 export const UserAvatar = styled.img`
   width: 100%;
   height: 100%;
@@ -127,6 +115,7 @@ export const UserAvatar = styled.img`
     background-image: url(${UserAvatarIcon});
     background-size: cover;
     background-position: center;
+    border-radius: 50%;
     position: absolute;
     top: 0;
     left: 0;

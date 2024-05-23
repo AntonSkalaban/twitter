@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { StyledForm, UserAvatar } from "styled/index";
-import { BitrhDaySelect } from "components/BirthDaySelect.ts";
+import { BitrhDaySelect } from "components/BirthDaySelect";
 import { FormButton } from "components/Form/FormButton";
 import { FormImageInput } from "components/Form/FormImageInput";
 import { FormInput } from "components/Form/FormInput";
@@ -26,7 +26,7 @@ export const EditProfile: FC = () => {
 
   const [base64String, setBase64String] = useState(user.image);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: getDefaultValues(user),
   });
@@ -37,7 +37,7 @@ export const EditProfile: FC = () => {
   };
 
   const onSubmit = async (data: FormValues) => {
-    trigger(data, base64String);
+    await trigger(data, base64String);
   };
 
   return (

@@ -2,13 +2,14 @@ import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FlexRow, H5, LinkGrey, P, StyledPage, UserAvatar } from "styled/index";
-import { CreateTweet } from "components/CreateTweet";
 import { EditProfile } from "components/EditProfile";
 import { Modal } from "components/Modal";
+import { CreateTweet } from "components/Tweet/CreateTweet";
 import { TweetsList } from "components/TweetsList";
 import { getUserTweetsQuery } from "store/sagas";
-import { getUser, getUserTweets } from "store/slices";
+import { getUserTweets } from "store/slices";
 
+import { ProfileProps } from "./types";
 import {
   EditButton,
   ImageContainer,
@@ -17,11 +18,12 @@ import {
   UserInfoContainer,
 } from "./styled";
 
-export const Profile: FC = () => {
+export const Profile: FC<ProfileProps> = ({ user, isCurrentUser }) => {
   const dispatch = useDispatch();
 
-  const { id, name, email, image } = useSelector(getUser);
-  const { tweets, error, isFetching } = useSelector(getUserTweets);
+  const { id, name, email, image } = user;
+
+  const { tweets, isFetching } = useSelector(getUserTweets);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,7 +41,6 @@ export const Profile: FC = () => {
           <EditProfile />
         </Modal>
       )}
-
       <ImageContainer />
       <UserInfoContainer>
         <FlexRow>
@@ -56,10 +57,9 @@ export const Profile: FC = () => {
         <LinkGrey>{email}</LinkGrey>
         <P>{email}</P>
       </UserInfoContainer>
-
-      <CreateTweet />
+      {isCurrentUser && <CreateTweet />}
       <TweetsTitle>Tweets</TweetsTitle>
-      <TweetsList tweets={tweets} error={error} isFetching={isFetching} />
+      <TweetsList tweets={tweets} isFetching={isFetching} error={null} />
     </StyledPage>
   );
 };

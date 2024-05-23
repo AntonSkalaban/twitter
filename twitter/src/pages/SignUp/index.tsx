@@ -7,7 +7,7 @@ import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { StyledForm } from "styled";
-import { BitrhDaySelect } from "components/BirthDaySelect.ts";
+import { BitrhDaySelect } from "components/BirthDaySelect";
 import { FormInput } from "components/Form/FormInput";
 import { FormButton } from "components/index";
 import { Modal } from "components/Modal";

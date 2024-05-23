@@ -7,6 +7,7 @@ export const SelectWrapper = styled.div`
   max-width: 312px;
   width: 100%;
   position: relative;
+  color: ${({ theme }) => theme.fonts.secondary};
 `;
 
 export const StyledSelect = styled.div`

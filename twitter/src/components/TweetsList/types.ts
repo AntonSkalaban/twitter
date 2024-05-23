@@ -1,7 +1,7 @@
 import { Tweet } from "types/index";
 
-export interface TweetsListProps {
-  size?: "small" | "big";
+export interface ItemsListProps {
+  itemType?: "big" | "small";
   tweets: Tweet[];
   isFetching: boolean;
   error: null | string;

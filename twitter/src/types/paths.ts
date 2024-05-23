@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum PageNamesEnum {
   Home = "Home",
+  Search = "Search",
   Explore = "Explore",
   Notifications = "Notifications",
   Messages = "Messages",
@@ -12,6 +13,7 @@ export enum PageNamesEnum {
 
 export enum PagePathsEnum {
   Home = "feed",
+  Search = "search",
   Explore = "",
   Notifications = "",
   Messages = "",

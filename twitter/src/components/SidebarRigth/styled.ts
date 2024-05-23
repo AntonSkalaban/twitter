@@ -7,9 +7,20 @@ export const StyledSidebar = styled.aside`
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 
   @media ${({ theme }) => theme.media.medium} {
     display: none;
   }
+`;
+
+export const UsersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
+  border-radius: 10px;
+
+  color: black;
+  padding: 10px;
 `;

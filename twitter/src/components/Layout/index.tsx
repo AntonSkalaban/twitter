@@ -1,14 +1,15 @@
 import { FC, ReactNode, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { H4, Wrapper } from "styled/StyledComponents";
 import { SidebarRight } from "components/SidebarRigth";
 import { ThemeToggle } from "components/ThemeToggle";
 import { getUser } from "store/slices";
+import { useGetPageName } from "hooks/index";
+import { PageNamesEnum } from "types/paths";
 
 import { Sidebar } from "..";
-import { getPageName } from "./helpers";
 import { PageContainer, StyledMain, TopRow } from "./styled";
 
 interface MainLayoutProps {
@@ -17,16 +18,17 @@ interface MainLayoutProps {
 
 export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+
+  let pageName = useGetPageName();
 
   const { id, name } = useSelector(getUser);
+
+  if (pageName === PageNamesEnum.Profile) pageName = name;
 
   useEffect(() => {
     if (!id) return navigate("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const pageName = getPageName(pathname, name);
 
   return (
     <Wrapper>

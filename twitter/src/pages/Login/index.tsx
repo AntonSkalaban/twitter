@@ -1,53 +1,30 @@
 import { FC } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { UserApi } from "api/UserApi";
 import { H2, StyledForm } from "styled";
 import { FormInput } from "components/Form/FormInput";
 import { FormButton } from "components/index";
-import { setUser } from "store/slices";
-import { auth } from "constants/index";
+import { ErrorMessage } from "components/UI/ErrorMessage";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
-import { defaultValues, schema, telRegExp } from "./constants";
+import { defaultValues, schema } from "./constants";
+import { useLogin } from "./hooks";
 import { FormValues } from "./types";
 import { LoginWrapper } from "./styled";
 
 export const Login: FC = () => {
+  const { login, isFetching, error } = useLogin();
+
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues,
     mode: "onSubmit",
   });
 
-  const dispath = useDispatch();
-
-  const navigate = useNavigate();
-
-  const onSubmit = async (data: FormValues) => {
-    const { emailOrPhone, password } = data;
-
-    let userFromDB;
-    let email = emailOrPhone;
-
-    const isPhoneNumber = telRegExp.test(data.emailOrPhone);
-
-    if (isPhoneNumber) {
-      userFromDB = (await UserApi.getUsersDoc("phone", emailOrPhone))[0];
-      if (!userFromDB) return;
-      email = userFromDB.email;
-    }
-
-    const { user } = await signInWithEmailAndPassword(auth, email, password);
-    if (!user) return;
-    userFromDB ??= await UserApi.getUserDoc(user.uid);
-
-    if (userFromDB) dispath(setUser(userFromDB));
-    navigate("/profile");
+  const onSubmit = (data: FormValues) => {
+    login(data);
   };
 
   return (
@@ -81,7 +58,8 @@ export const Login: FC = () => {
           )}
         />
 
-        <FormButton title="Log in" />
+        <ErrorMessage error={error} />
+        <FormButton title="Log in" isFetching={isFetching} />
       </StyledForm>
       <NavLink to={"/sign-up"} style={{ textAlign: "end" }}>
         Sign up to Twitter

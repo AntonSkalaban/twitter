@@ -3,6 +3,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
   query,
   setDoc,
   updateDoc,
@@ -20,15 +21,20 @@ export class UserApi {
     if (docSnap.exists()) return docSnap.data() as User;
   }
 
-  static async getUsersDoc(key: keyof User, value: string) {
-    const q = query(collection(db, "users"), where(key, "==", value));
+  static async getUsers(key?: keyof User, value?: string) {
+    const q = key
+      ? query(collection(db, "users"), where(key, "==", value), limit(20))
+      : query(collection(db, "users"), limit(2));
 
     const querySnapshot = await getDocs(q);
-    const users: User[] = [];
 
-    querySnapshot.forEach((doc) => {
-      users.push(doc.data() as User);
-    });
+    const users = querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as User,
+    );
 
     return users;
   }
