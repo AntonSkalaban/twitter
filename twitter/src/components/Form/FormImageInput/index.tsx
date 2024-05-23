@@ -26,6 +26,7 @@ export const FormImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
 
       const uploadedFile = files[0];
       if (uploadedFile.size > 1048576) return;
+
       const base64String = (await convertImageToBase64(uploadedFile)) as string;
 
       onUpload(base64String);

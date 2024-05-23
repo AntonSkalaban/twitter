@@ -26,6 +26,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [isFetching, setIsFetching] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const hanldeEmailClick = () => {
@@ -33,35 +34,40 @@ export const Home = () => {
   };
 
   const handleGoogleClick = async () => {
-    const user = await signInWithGoogle();
+    try {
+      setIsFetching(true);
+      const user = await signInWithGoogle();
 
-    const userDoc = await UserApi.getUserDoc(user.uid);
+      const userDoc = await UserApi.getUserDoc(user.uid);
 
-    const activeUser = userDoc
-      ? {
-          id: userDoc.id,
-          name: userDoc.name,
-          email: userDoc.email,
-          image: userDoc.image,
-          phone: userDoc.phone,
-          birth: userDoc.birth,
-        }
-      : {
-          id: user.uid,
-          name: user.displayName || "",
-          email: user.email || "",
-          image: user.photoURL,
-          phone: user.phoneNumber,
-          birth: null,
-        };
+      const activeUser = userDoc
+        ? {
+            id: userDoc.id,
+            name: userDoc.name,
+            email: userDoc.email,
+            image: userDoc.image,
+            phone: userDoc.phone,
+            birth: userDoc.birth,
+          }
+        : {
+            id: user.uid,
+            name: user.displayName || "",
+            email: user.email || "",
+            image: user.photoURL,
+            phone: user.phoneNumber,
+            birth: null,
+          };
 
-    if (userDoc) {
-      navigate("/" + PagePathsEnum.Profile);
-    } else {
-      UserApi.addUserDoc(activeUser);
-      setIsOpen(true);
+      if (userDoc) {
+        navigate("/" + PagePathsEnum.Profile);
+      } else {
+        UserApi.addUserDoc(activeUser);
+        setIsOpen(true);
+      }
+      dispatch(setUser(activeUser));
+    } catch (e) {
+      setIsFetching(false);
     }
-    dispatch(setUser(activeUser));
   };
 
   const hanldePasswordSubmit = async (password: string) => {
@@ -89,8 +95,8 @@ export const Home = () => {
             <H2>Join Twitter today</H2>
 
             <FlexContainer>
-              <StyledButton onClick={handleGoogleClick}>
-                <GoogleIcon /> Sign up with Google
+              <StyledButton onClick={handleGoogleClick} disabled={isFetching}>
+                <GoogleIcon /> {isFetching ? "Fetching..." : "Sign up with Google"}
               </StyledButton>
               <StyledButton onClick={hanldeEmailClick}>Sign up with email</StyledButton>
             </FlexContainer>
