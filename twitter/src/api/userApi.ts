@@ -21,6 +21,26 @@ export class UserApi {
     if (docSnap.exists()) return docSnap.data() as User;
   }
 
+  static async getSearchedUsers(value: string) {
+    const q = query(
+      collection(db, "users"),
+      where("name", ">=", value),
+      where("name", "<=", value + "\uf8ff"),
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    const users = querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as User,
+    );
+
+    return users;
+  }
+
   static async getUsers(key?: keyof User, value?: string) {
     const q = key
       ? query(collection(db, "users"), where(key, "==", value), limit(20))

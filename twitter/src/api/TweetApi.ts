@@ -41,9 +41,34 @@ export class TweetApi {
   }
 
   static async getTweetsWithImage() {
-    const querySnapshot = await getDocs(
-      query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100)),
+    const q = query(
+      collection(db, "posts"),
+      where("image", "!=", null),
+      orderBy("createdAt", "asc"),
+      limit(6),
     );
+
+    const querySnapshot = await getDocs(q);
+
+    const tweets = querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as TweetResponce,
+    );
+    return tweets;
+  }
+
+  static async getSearchedTweets(value: string) {
+    const q = query(
+      collection(db, "posts"),
+      where("title", ">=", value),
+      where("title", "<=", value + "\uf8ff"),
+      orderBy("createdAt", "desc"),
+    );
+
+    const querySnapshot = await getDocs(q);
 
     const tweets = querySnapshot.docs.map(
       (doc) =>
@@ -53,7 +78,7 @@ export class TweetApi {
         }) as TweetResponce,
     );
 
-    return tweets.filter(({ image }) => image).slice(0, 6);
+    return tweets;
   }
 
   static async addTweet(post: Omit<TweetResponce, "id">) {

@@ -13,8 +13,7 @@ export function* getSearchedTweetsSaga(action: { type: string; payload: { value:
     yield put(fetchSearchedTweetsRequest());
 
     const tweetsResponce: TweetResponce[] = yield call(
-      TweetApi.getTweets,
-      "title",
+      TweetApi.getSearchedTweets,
       action.payload.value,
     );
 

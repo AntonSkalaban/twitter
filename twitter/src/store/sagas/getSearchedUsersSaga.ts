@@ -11,7 +11,7 @@ export function* getSearchedUsersSaga(action: { type: string; payload: { value: 
   try {
     yield put(fetchSearchedUsersRequest());
 
-    const users: User[] = yield call(UserApi.getUsers, "name", action.payload.value);
+    const users: User[] = yield call(UserApi.getSearchedUsers, action.payload.value);
 
     yield put(fetchSearchedUsersSuccess(users));
   } catch (e) {

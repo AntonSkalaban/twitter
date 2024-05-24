@@ -18,7 +18,8 @@ export const useTweetsWithImageQuery = () => {
 
         setTweet(tweetResponce);
       } catch (e) {
-        setError("error");
+        const errorMessage = e instanceof Error ? e.message : "Unknown error occurred";
+        setError(errorMessage);
       }
       setIsFetching(false);
     };
