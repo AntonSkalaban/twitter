@@ -4,7 +4,7 @@ export const isLeapYear = (year: number) => {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 };
 
-export const getDaysInMonth = (month: number, year: number) => {
+export const getDaysInMonth = (month: number, year: number): number => {
   if (month === 3 || month === 5 || month === 8 || month === 10) {
     return 30;
   }

@@ -14,7 +14,10 @@ export const DateSelect: FC<DateSelectProps> = ({ control }) => {
     control,
   });
 
-  const monthName = monthsOptions[+month].name;
+  const monthName = useMemo(
+    () => monthsOptions.find(({ value }) => value === +month)?.name as string,
+    [month],
+  );
   const daysInSelectMonth = useMemo(() => getDaysInMonth(+month, +year), [month, year]);
 
   const daysOtions = useMemo(() => getDaysOptions(daysInSelectMonth || 31), [daysInSelectMonth]);
