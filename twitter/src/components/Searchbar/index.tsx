@@ -30,9 +30,7 @@ export const Searchbar: FC = () => {
 
   return (
     <StyledSearchbar>
-      {" "}
       <SearchButton>
-        {" "}
         <SearchIcon />
       </SearchButton>
       <SearchInput placeholder="Search Twitter" onChange={hanldeChange} />
