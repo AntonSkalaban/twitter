@@ -1,7 +1,22 @@
 import { Option } from "types";
 
-const isLeapYear = (year: number) => {
+export const isLeapYear = (year: number) => {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+};
+
+export const getDaysInMonth = (month: number, year: number) => {
+  if (month === 3 || month === 5 || month === 8 || month === 10) {
+    return 30;
+  }
+
+  if (month == 1) {
+    if (isLeapYear(year)) {
+      return 29;
+    }
+    return 28;
+  }
+
+  return 31;
 };
 
 export const getYearsOptions = (
@@ -10,7 +25,6 @@ export const getYearsOptions = (
   isFebruary29: boolean,
 ): Option[] => {
   const years = [];
-
   for (let year = startYear; year >= endYear; year--) {
     if (isFebruary29 && !isLeapYear(year)) continue;
     years.push({ name: year, value: year });

@@ -32,14 +32,14 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
           ))}
         </select>
         <SelectWrapper ref={selectRef} onClick={handleClick}>
-          <StyledSelect>
+          <StyledSelect data-testid={"select-title"}>
             {title}
             <SelectBtn>
               <VectorIcon />
             </SelectBtn>
           </StyledSelect>
           {isOpen && (
-            <SelectContent>
+            <SelectContent data-testid={"select-content"}>
               {options.map(({ name, value }) => (
                 <SelectOption key={value} onClick={handleSelect(value)}>
                   {name}

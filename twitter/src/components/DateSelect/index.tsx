@@ -3,25 +3,25 @@ import { Controller, useWatch } from "react-hook-form";
 
 import { FormSelect } from "components";
 
-import { daysInMonth, monthsOptions } from "./constants";
-import { getDaysOptions, getYearsOptions } from "./helpers";
-import { BitrhDaySelectProps } from "./types";
+import { monthsOptions } from "./constants";
+import { getDaysInMonth, getDaysOptions, getYearsOptions } from "./helpers";
+import { DateSelectProps } from "./types";
 import { SelectsContainer } from "./styled";
 
-export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ control }) => {
+export const DateSelect: FC<DateSelectProps> = ({ control }) => {
   const { month, day, year } = useWatch({
     name: "birthday",
     control,
   });
 
-  const daysInSelectMonth = daysInMonth[month];
+  const monthName = monthsOptions[+month].name;
+  const daysInSelectMonth = useMemo(() => getDaysInMonth(+month, +year), [month, year]);
 
   const daysOtions = useMemo(() => getDaysOptions(daysInSelectMonth || 31), [daysInSelectMonth]);
 
   const yearsOptions = useMemo(() => {
     const year = new Date().getFullYear();
-    const isFebruary29 = +month === 10 && +day === 29;
-
+    const isFebruary29 = +month === 1 && +day === 29;
     return getYearsOptions(year, year - 99, isFebruary29);
   }, [month, day]);
 
@@ -32,7 +32,7 @@ export const BitrhDaySelect: FC<BitrhDaySelectProps> = ({ control }) => {
         name="birthday.month"
         render={({ field, formState: { errors } }) => (
           <FormSelect
-            title={month ? monthsOptions[+month].name : "Month"}
+            title={month ? monthName : "Month"}
             options={monthsOptions}
             onChange={(value: string) => field.onChange(value)}
             error={errors.birthday?.month?.message}

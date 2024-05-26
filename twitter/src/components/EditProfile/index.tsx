@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { StyledForm, UserAvatar } from "styled/index";
-import { BitrhDaySelect } from "components/BirthDaySelect";
+import { DateSelect } from "components/DateSelect";
 import { FormButton } from "components/Form/FormButton";
 import { FormImageInput } from "components/Form/FormImageInput";
 import { FormInput } from "components/Form/FormInput";
@@ -99,7 +99,7 @@ export const EditProfile: FC = () => {
         />
         <ErrorMessage error={errorMessage} />
 
-        <BitrhDaySelect
+        <DateSelect
           control={
             control as unknown as Control<{
               birthday: { month: string; year: string; day: string };

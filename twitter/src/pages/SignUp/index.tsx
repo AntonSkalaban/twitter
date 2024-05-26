@@ -7,7 +7,7 @@ import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { StyledForm } from "styled";
-import { BitrhDaySelect } from "components/BirthDaySelect";
+import { DateSelect } from "components/DateSelect";
 import { FormInput } from "components/Form/FormInput";
 import { FormButton } from "components/index";
 import { Modal } from "components/Modal";
@@ -126,7 +126,7 @@ export const SignUp: FC = () => {
           <SignUpH4>Date of birth</SignUpH4>
 
           <SignUpP>{birthdayText}</SignUpP>
-          <BitrhDaySelect
+          <DateSelect
             control={
               control as unknown as Control<{
                 birthday: { month: string; year: string; day: string };

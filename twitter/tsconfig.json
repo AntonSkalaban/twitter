@@ -31,10 +31,9 @@
       "api/*": ["api/*"],
    }
   },
-  "include": ["src"],
+  "include": ["src",  "src/typings/theme.d.ts", "setup.ts"],
   "exclude": [
       "node_modules",
       "dist",
-      "src/typings/theme.d.ts"
   ]  
 }
