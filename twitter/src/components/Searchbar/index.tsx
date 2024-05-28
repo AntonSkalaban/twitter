@@ -14,7 +14,7 @@ export const Searchbar: FC = () => {
   const debouncedValue = useDebounce(value);
 
   const getTweets = useCallback(async () => {
-    dispatch(getSearchedTweetsQuery(debouncedValue));
+    dispatch(getSearchedTweetsQuery(debouncedValue, null));
     dispatch(getSearchedUsersQuery(debouncedValue));
   }, [debouncedValue, dispatch]);
 

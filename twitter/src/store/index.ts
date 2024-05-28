@@ -2,7 +2,6 @@ import createSagaMiddleware from "@redux-saga/core";
 import { configureStore } from "@reduxjs/toolkit";
 
 import addPostSlice from "./slices/addPostSlice";
-import postsSlice from "./slices/postsSlice";
 import rootSaga from "./sagas";
 import {
   searchedTweetsSlice,
@@ -22,7 +21,6 @@ export const store = configureStore({
     searchedTweets: searchedTweetsSlice,
     searchedUsers: searchedUsersSlice,
     tweets: tweetsSlice,
-    posts: postsSlice,
     addPost: addPostSlice,
     theme: themeSlice,
   },

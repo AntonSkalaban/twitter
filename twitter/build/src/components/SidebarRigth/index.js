@@ -1,0 +1,20 @@
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { useSelector } from "react-redux";
+import { H3 } from "styled/StyledComponents";
+import { TweetsList } from "components/TweetsList";
+import { UsersList } from "components/UsersList";
+import { getSearchedTweets, getSearchedUsers } from "store/slices";
+import { useGetPageName } from "hooks/index";
+import { PageNamesEnum } from "types/paths";
+import { Searchbar } from "../Searchbar";
+import { useGetRandomUsers } from "./hooks";
+import { TweetsImages } from "./TweetsImages";
+import { StyledSidebar, UsersContainer } from "./styled";
+export const SidebarRight = () => {
+    const pageName = useGetPageName();
+    const { tweets, isFetching: isTweetsFetching } = useSelector(getSearchedTweets);
+    const { users: searchedUsers, isFetching: isSearchedUsersFetching } = useSelector(getSearchedUsers);
+    const { users: randomUsers, isFetching: isRandomUsersFetching } = useGetRandomUsers();
+    const isSearchPageOpen = pageName === PageNamesEnum.Search;
+    return (_jsxs(StyledSidebar, { children: [!isSearchPageOpen && (_jsxs(_Fragment, { children: [_jsx(Searchbar, {}), _jsx(TweetsList, { tweets: tweets, isFetching: isTweetsFetching, error: null, itemType: "small" })] })), !tweets.length && _jsx(TweetsImages, {}), _jsxs(UsersContainer, { children: [!searchedUsers.length && _jsx(H3, { children: "Also like" }), _jsx(UsersList, { users: searchedUsers.length ? searchedUsers : randomUsers, isFetching: isSearchedUsersFetching ? isSearchedUsersFetching : isRandomUsersFetching, error: null })] })] }));
+};

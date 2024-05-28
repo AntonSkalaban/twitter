@@ -1,0 +1,18 @@
+import styled from "styled-components";
+export const TweetsImagesContainer = styled.div `
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 88px);
+  gap: 2px;
+
+  overflow: hidden;
+  border-radius: 10px;
+
+  margin: 15px 15px 0 15px;
+`;
+export const TweetImage = styled.div `
+  background-image: url(${({ $image }) => $image});
+
+  background-size: cover;
+  background-repeat: no-repeat;
+`;

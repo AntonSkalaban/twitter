@@ -1,15 +1,12 @@
 import styled from "styled-components";
-
 import { borderGreyMixin } from "styled/Mixin";
-
-export const SwitchInput = styled.input`
+export const SwitchInput = styled.input `
   height: 0;
   width: 0;
   visibility: hidden;
   position: absolute;
 `;
-
-export const SwitchLabel = styled.label`
+export const SwitchLabel = styled.label `
   display: flex;
   justify-content: space-between;
 
@@ -22,8 +19,7 @@ export const SwitchLabel = styled.label`
   position: relative;
   transition: background-color 0.2s;
 `;
-
-export const SwitchButton = styled.span`
+export const SwitchButton = styled.span `
   content: "";
   position: absolute;
   top: -2px;
