@@ -1,26 +1,40 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { StyledPage } from "styled/index";
+import { LoadingSpinner, StyledPage } from "styled/index";
 import { CreateTweet } from "components/Tweet/CreateTweet";
 import { TweetsList } from "components/TweetsList";
 import { getTweetsQuery } from "store/sagas";
-import { getTweets } from "store/slices";
+import { getTweets, getUser, resetTweets } from "store/slices";
+import { useInfinityScroll } from "hooks/index";
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();
-  const { tweets, error, isFetching } = useSelector(getTweets);
+  const { id } = useSelector(getUser);
+  const { tweets, total, error, isFetching } = useSelector(getTweets);
+
+  const isLastPage = total <= tweets.length;
+
+  const lastDoc = useInfinityScroll(tweets, isLastPage, isFetching);
 
   useEffect(() => {
-    dispatch(getTweetsQuery());
+    if (id) {
+      dispatch(getTweetsQuery(lastDoc));
+    }
+  }, [dispatch, id, lastDoc]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetTweets());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <StyledPage>
-      {" "}
       <CreateTweet />
-      <TweetsList tweets={tweets} isFetching={isFetching} error={error} />
+      <TweetsList tweets={tweets} error={error} />
+      {isFetching && <LoadingSpinner />}
     </StyledPage>
   );
 };

@@ -6,6 +6,7 @@ export const baseTheme: Theme = {
   colors: {
     white: "rgba(255, 255, 255, 1)",
     black: "rgba(0, 0, 0, 1)",
+    blue: "rgba(29, 161, 242, 1)",
     lightBlack: "rgba(60, 60, 60, 1)",
     grey: "rgba(0, 0, 0, 0.2)",
     darkGrey: "rgba(130, 130, 130, 1)",

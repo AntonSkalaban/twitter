@@ -8,14 +8,15 @@ import {
 } from "store/slices";
 import { Tweet, TweetResponce, User } from "types/index";
 
-export function* getSearchedTweetsSaga(action: { type: string; payload: { value: string } }) {
+export function* getSearchedTweetsSaga(action: {
+  type: string;
+  payload: { value: string; lastTweet: number | null };
+}) {
   try {
     yield put(fetchSearchedTweetsRequest());
 
-    const tweetsResponce: TweetResponce[] = yield call(
-      TweetApi.getSearchedTweets,
-      action.payload.value,
-    );
+    const { tweets: tweetsResponce, total }: { tweets: TweetResponce[]; total: number } =
+      yield call(TweetApi.getSearchedTweets, action.payload.value, action.payload.lastTweet);
 
     const tweets = [];
 
@@ -26,7 +27,7 @@ export function* getSearchedTweetsSaga(action: { type: string; payload: { value:
       }
     }
 
-    yield put(fetchSearchedTweetsSuccess(tweets));
+    yield put(fetchSearchedTweetsSuccess({ tweets, total }));
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown error occurred";
     yield put(fetchSearchedTweetsFailure(errorMessage));

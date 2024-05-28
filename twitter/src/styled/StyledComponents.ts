@@ -1,34 +1,8 @@
 import styled from "styled-components";
 
-import { baseTheme } from "constants/theme";
 import UserAvatarIcon from "assets/images/png/user-avatart.jpeg";
 
 import { greyTextMixin, inputMixin } from "./Mixin";
-const colors: { [key: string]: string } = {
-  blue: "rgba(29, 161, 242, 1)",
-  grey: baseTheme.colors.grey,
-};
-
-export const Button = styled.button<{
-  $size?: "big" | "medium";
-  $color?: "blue" | "grey";
-  $width?: string;
-}>`
-  width: ${({ $width }) => $width || "100%"};
-  height: 62px;
-
-  opacity: 0.8;
-
-  border-radius: 42px;
-
-  background-color: ${({ $color }) => colors[$color as string] || "#fff"};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  cursor: pointer;
-`;
 
 export const P = styled.p`
   font-size: 18px;
@@ -63,6 +37,27 @@ export const H5 = styled.h5`
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
+`;
+
+export const Button = styled.button<{
+  $size?: "big" | "medium";
+  $color?: "blue" | "grey";
+  $width?: string;
+}>`
+  width: ${({ $width }) => $width || "100%"};
+  height: 62px;
+
+  opacity: 0.8;
+
+  border-radius: 42px;
+
+  background-color: ${({ $color, theme }) => theme.colors[$color || "white"]};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  cursor: pointer;
 `;
 
 export const Input = styled.input`
@@ -146,4 +141,30 @@ export const Overlay = styled.section`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 200;
+`;
+
+export const LoadingSpinner = styled.div`
+  position: relative;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: crabbly_spinner infinite 0.75s linear;
+  -moz-animation: crabbly_spinner infinite 0.75s linear;
+  -o-animation: crabbly_spinner infinite 0.75s linear;
+  animation: crabbly_spinner infinite 0.75s linear;
+  border: 4px solid ${({ theme }) => theme.colors.grey};
+  border-top-color: rgba(0, 0, 0, 0.1);
+  border-right-color: rgba(0, 0, 0, 0.1);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+
+  margin: 20px auto;
+
+  @keyframes crabbly_spinner {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;

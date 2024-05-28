@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { FlexRow, H5, LinkGrey, P, StyledPage, UserAvatar } from "styled/index";
+import { FlexRow, H5, LinkGrey, LoadingSpinner, P, StyledPage, UserAvatar } from "styled/index";
 import { EditProfile } from "components/EditProfile";
 import { Modal } from "components/Modal";
 import { CreateTweet } from "components/Tweet/CreateTweet";
 import { TweetsList } from "components/TweetsList";
 import { getUserTweetsQuery } from "store/sagas";
-import { getUserTweets } from "store/slices";
+import { getUserTweets, resetUserTweets } from "store/slices";
+import { useInfinityScroll } from "hooks/index";
 
 import { ProfileProps } from "./types";
 import {
@@ -21,14 +22,26 @@ import {
 export const Profile: FC<ProfileProps> = ({ user, isCurrentUser }) => {
   const dispatch = useDispatch();
 
+  const { tweets, total, isFetching } = useSelector(getUserTweets);
+
   const { id, name, email, image } = user;
 
-  const { tweets, isFetching } = useSelector(getUserTweets);
+  const isLastPage = total <= tweets.length;
+
+  const lastDoc = useInfinityScroll(tweets, isLastPage, isFetching);
 
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(getUserTweetsQuery(id));
+    if (id) {
+      dispatch(getUserTweetsQuery(id, lastDoc));
+    }
+  }, [dispatch, id, lastDoc]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserTweets());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +72,8 @@ export const Profile: FC<ProfileProps> = ({ user, isCurrentUser }) => {
       </UserInfoContainer>
       {isCurrentUser && <CreateTweet />}
       <TweetsTitle>Tweets</TweetsTitle>
-      <TweetsList tweets={tweets} isFetching={isFetching} error={null} />
+      <TweetsList tweets={tweets} error={null} />
+      {isFetching && <LoadingSpinner />}
     </StyledPage>
   );
 };

@@ -10,12 +10,12 @@ const root = document.getElementById("root");
 
 if (root) {
   ReactDOM.createRoot(root).render(
-    <StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </StrictMode>,
+    // <StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>,
+    // </StrictMode>,
   );
 }

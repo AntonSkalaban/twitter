@@ -7,18 +7,19 @@ import { getSearchedUsersSaga } from "./getSearchedUsersSaga";
 import { getTweetsSaga } from "./getTweetsSaga";
 import { getUserTweetsSaga } from "./getUserTweets";
 
-export const getTweetsQuery = () => ({
+export const getTweetsQuery = (lastTweet: number | null) => ({
   type: GET_TWEETS,
+  payload: { lastTweet },
 });
 
-export const getUserTweetsQuery = (userId: string) => ({
+export const getUserTweetsQuery = (userId: string, lastTweet: number | null) => ({
   type: GET_USER_TWEETS,
-  payload: { userId },
+  payload: { userId, lastTweet },
 });
 
-export const getSearchedTweetsQuery = (value: string) => ({
+export const getSearchedTweetsQuery = (value: string, lastTweet: number | null) => ({
   type: GET_SEARCHED_TWEETS,
-  payload: { value },
+  payload: { value, lastTweet },
 });
 
 export const getSearchedUsersQuery = (value: string) => ({

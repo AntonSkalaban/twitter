@@ -6,6 +6,7 @@ export enum ThemeEnum {
 export interface Colors {
   white: string;
   black: string;
+  blue: string;
   grey: string;
   darkGrey: string;
   lightGrey: string;

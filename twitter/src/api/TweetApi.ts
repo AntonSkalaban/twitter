@@ -1,18 +1,23 @@
 import {
   addDoc,
-  collection,
   doc,
+  getCountFromServer,
   getDoc,
   getDocs,
   limit,
   orderBy,
   query,
+  QueryConstraint,
+  startAfter,
   updateDoc,
   where,
 } from "firebase/firestore";
 
 import { db } from "constants/index";
 import { Tweet, TweetResponce } from "types/index";
+
+import { tweetsCollection } from "./constants";
+import { getDocsData } from "./helpers";
 
 export class TweetApi {
   static async getTweet(id: string) {
@@ -22,27 +27,26 @@ export class TweetApi {
     if (docSnap.exists()) return docSnap.data() as TweetResponce;
   }
 
-  static async getTweets(key?: keyof TweetResponce, value?: string) {
-    const q = key
-      ? query(collection(db, "posts"), where(key, "==", value), orderBy("createdAt", "desc"))
-      : query(collection(db, "posts"), orderBy("createdAt", "desc"));
+  static async getTweets(lastTweet: number | null, key?: keyof TweetResponce, value?: string) {
+    const constraints: QueryConstraint[] = [orderBy("createdAt", "desc")];
+
+    if (key) constraints.unshift(where(key, "==", value));
+    if (lastTweet) constraints.push(startAfter(lastTweet));
+
+    const q = query(tweetsCollection, ...constraints, limit(5));
+
+    const total = (await getCountFromServer(query(tweetsCollection, ...constraints))).data().count;
 
     const querySnapshot = await getDocs(q);
 
-    const tweets = querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as TweetResponce,
-    );
+    const tweets = getDocsData<TweetResponce>(querySnapshot.docs);
 
-    return tweets;
+    return { tweets, total };
   }
 
   static async getTweetsWithImage() {
     const q = query(
-      collection(db, "posts"),
+      tweetsCollection,
       where("image", "!=", null),
       orderBy("createdAt", "asc"),
       limit(6),
@@ -50,39 +54,32 @@ export class TweetApi {
 
     const querySnapshot = await getDocs(q);
 
-    const tweets = querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as TweetResponce,
-    );
+    const tweets = getDocsData<TweetResponce>(querySnapshot.docs);
+
     return tweets;
   }
 
-  static async getSearchedTweets(value: string) {
-    const q = query(
-      collection(db, "posts"),
+  static async getSearchedTweets(value: string, lastTweet: number | null) {
+    const constraints: QueryConstraint[] = [
       where("title", ">=", value),
       where("title", "<=", value + "\uf8ff"),
       orderBy("createdAt", "desc"),
-    );
+    ];
+
+    if (lastTweet) constraints.push(startAfter(lastTweet));
+
+    const q = query(tweetsCollection, ...constraints, limit(5));
 
     const querySnapshot = await getDocs(q);
 
-    const tweets = querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as TweetResponce,
-    );
+    const tweets = getDocsData<TweetResponce>(querySnapshot.docs);
+    const total = (await getCountFromServer(query(tweetsCollection, ...constraints))).data().count;
 
-    return tweets;
+    return { tweets, total };
   }
 
   static async addTweet(post: Omit<TweetResponce, "id">) {
-    const responce = await addDoc(collection(db, "posts"), post);
+    const responce = await addDoc(tweetsCollection, post);
     return responce.id;
   }
 

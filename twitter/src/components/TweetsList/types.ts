@@ -3,6 +3,6 @@ import { Tweet } from "types/index";
 export interface ItemsListProps {
   itemType?: "big" | "small";
   tweets: Tweet[];
-  isFetching: boolean;
+  isFetching?: boolean;
   error: null | string;
 }

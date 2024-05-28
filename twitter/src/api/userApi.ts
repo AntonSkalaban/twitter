@@ -1,17 +1,10 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { doc, getDoc, getDocs, limit, query, setDoc, updateDoc, where } from "firebase/firestore";
 
 import { db } from "constants/index";
 import { User } from "types";
+
+import { usersCollection } from "./constants";
+import { getDocsData } from "./helpers";
 
 export class UserApi {
   static async getUserDoc(userId: string) {
@@ -23,38 +16,26 @@ export class UserApi {
 
   static async getSearchedUsers(value: string) {
     const q = query(
-      collection(db, "users"),
+      usersCollection,
       where("name", ">=", value),
       where("name", "<=", value + "\uf8ff"),
     );
 
     const querySnapshot = await getDocs(q);
 
-    const users = querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as User,
-    );
+    const users = getDocsData<User>(querySnapshot.docs);
 
     return users;
   }
 
   static async getUsers(key?: keyof User, value?: string) {
     const q = key
-      ? query(collection(db, "users"), where(key, "==", value), limit(20))
-      : query(collection(db, "users"), limit(2));
+      ? query(usersCollection, where(key, "==", value), limit(20))
+      : query(usersCollection, limit(2));
 
     const querySnapshot = await getDocs(q);
 
-    const users = querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as User,
-    );
+    const users = getDocsData<User>(querySnapshot.docs);
 
     return users;
   }
