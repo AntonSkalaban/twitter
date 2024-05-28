@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { TweetApi } from "api/TweetApi";
-import { UserApi } from "api/UserApi";
+import { TweetApi, UserApi } from "api";
 import { Tweet } from "types/index";
 
 export const useTweetQuery = (tweetId?: string) => {

@@ -10,7 +10,8 @@
     "eslint:fix": "eslint src/ --fix",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "vitest"
+    "test": "vitest",
+    "cypress": "cypress run"
   },
   "dependencies": {
     "@babel/preset-react": "^7.24.6",
@@ -38,6 +39,7 @@
     "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
+    "@types/mocha": "^10.0.6",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/styled-components": "^5.1.34",

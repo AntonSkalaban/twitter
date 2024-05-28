@@ -82,6 +82,7 @@ export const CreateTweet: FC<CreateTweetFormProps> = ({ onCreated }) => {
             />
 
             <Button
+              data-testid="create-tweet-btn"
               $width="120px"
               style={{ height: "50px" }}
               $color="blue"

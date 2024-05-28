@@ -39,9 +39,9 @@ export const Login: FC = () => {
           render={({ field, formState }) => (
             <FormInput
               {...field}
+              data-testid="emailOrPhone"
               error={formState.errors.emailOrPhone?.message}
               placeholder="Email of phone"
-              maxLength={11}
             />
           )}
         />
@@ -50,8 +50,9 @@ export const Login: FC = () => {
           name="password"
           render={({ field, formState }) => (
             <FormInput
-              type="password"
               {...field}
+              data-testid="password"
+              type="password"
               error={formState.errors.password?.message}
               placeholder="Password"
             />

@@ -40,7 +40,7 @@ export const Home = () => {
 
       const userDoc = await UserApi.getUserDoc(user.uid);
 
-      const activeUser = userDoc
+      const body = userDoc
         ? {
             id: userDoc.id,
             name: userDoc.name,
@@ -61,10 +61,10 @@ export const Home = () => {
       if (userDoc) {
         navigate("/" + PagePathsEnum.Profile);
       } else {
-        UserApi.addUserDoc(activeUser);
+        UserApi.addUserDoc(body);
         setIsOpen(true);
       }
-      dispatch(setUser(activeUser));
+      dispatch(setUser(body));
     } catch (e) {
       setIsFetching(false);
     }

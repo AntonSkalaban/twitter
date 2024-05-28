@@ -9,10 +9,10 @@ export const schema = yup.object().shape({
     .required("Required")
     .test(
       "emailOrPhone",
-      "Некорректное значение",
+      "Should contain email or phone",
       (value) => emailRegExp.test(value) || telRegExp.test(value),
     ),
-  password: yup.string().email("Invalid email address").required("Required"),
+  password: yup.string().required("Required"),
 });
 
 export const defaultValues = {

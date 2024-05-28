@@ -6,13 +6,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+import { UserApi } from "api/index";
 import { StyledForm } from "styled";
 import { DateSelect } from "components/DateSelect";
 import { FormInput } from "components/Form/FormInput";
 import { FormButton } from "components/index";
 import { Modal } from "components/Modal";
 import { PasswordForm } from "components/PasswordForm";
-import { updateUser } from "store/slices";
+import { setUser } from "store/slices";
 import { auth } from "constants/index";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
@@ -39,19 +40,12 @@ export const SignUp: FC = () => {
 
   const [isPasswordOpen, setIsPasswordOpen] = useState(false);
 
-  const watchEmail = watch("email");
+  const name = watch("name");
+  const email = watch("email");
+  const phone = watch("phone");
+  const { year, month, day } = watch("birthday");
 
-  const onSubmit = async (data: FormValues) => {
-    const {
-      name,
-      email,
-      phone,
-      birthday: { month, day, year },
-    } = data;
-
-    const date = new Date(+year, +month, +day).toISOString();
-
-    dispatch(updateUser({ name, email, phone, image: null, birth: date }));
+  const onSubmit = () => {
     setIsPasswordOpen(true);
   };
 
@@ -59,9 +53,20 @@ export const SignUp: FC = () => {
 
   const hanldePasswordSubmit = async (password: string) => {
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, watchEmail, password);
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
       if (!user) return;
-      dispatch(updateUser({ id: user.uid }));
+
+      const body = {
+        id: user.uid,
+        name,
+        email,
+        image: null,
+        phone,
+        birth: new Date(+year, +month, +day).toISOString(),
+      };
+
+      UserApi.addUserDoc(body);
+      dispatch(setUser(body));
 
       closePasswordForm();
       navigate("/profile");
