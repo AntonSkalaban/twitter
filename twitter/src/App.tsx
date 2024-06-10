@@ -9,6 +9,7 @@ import { MainLayout } from "components/Layout";
 import { getTheme } from "store/slices";
 
 import { Home, Login, Search, SignUp, TweetPage } from "./pages";
+import { PagePathsEnum } from "./types";
 import { GlobalStyles, NormalStyles } from "./styled";
 
 function App() {
@@ -24,49 +25,13 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/profile"
-          element={
-            <MainLayout>
-              <CurrentProfile />
-            </MainLayout>
-          }
-        />
-
-        <Route
-          path="/profile/:id"
-          element={
-            <MainLayout>
-              <UserProfile />
-            </MainLayout>
-          }
-        />
-
-        <Route
-          path="/search"
-          element={
-            <MainLayout>
-              <Search />
-            </MainLayout>
-          }
-        />
-
-        <Route
-          path="/feed"
-          element={
-            <MainLayout>
-              <Feed />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/feed/:id"
-          element={
-            <MainLayout>
-              <TweetPage />
-            </MainLayout>
-          }
-        />
+        <Route path="/" element={<MainLayout />}>
+          <Route path={"/" + PagePathsEnum.Profile} element={<CurrentProfile />} />
+          <Route path={"/" + PagePathsEnum.Profile + "/:id"} element={<UserProfile />} />
+          <Route path={"/" + PagePathsEnum.Search} element={<Search />} />
+          <Route path={"/" + PagePathsEnum.Home} element={<Feed />} />
+          <Route path={"/" + PagePathsEnum.Home + "/:id"} element={<TweetPage />} />
+        </Route>
       </Routes>
     </ThemeProvider>
   );

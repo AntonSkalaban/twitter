@@ -1,16 +1,15 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { LoadingSpinner, StyledPage } from "styled/index";
-import { CreateTweet } from "components/Tweet/CreateTweet";
-import { TweetsList } from "components/TweetsList";
+import { LoadingSpinner, StyledPage } from "styled";
+import { CreateTweet, TweetsList } from "components";
 import { getTweetsQuery } from "store/sagas";
-import { getTweets, getUser, resetTweets } from "store/slices";
-import { useInfinityScroll } from "hooks/index";
+import { getTweets, resetTweets } from "store/slices";
+import { useInfinityScroll } from "hooks";
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();
-  const { id } = useSelector(getUser);
+
   const { tweets, total, error, isFetching } = useSelector(getTweets);
 
   const isLastPage = total <= tweets.length;
@@ -18,10 +17,8 @@ export const Feed: FC = () => {
   const lastDoc = useInfinityScroll(tweets, isLastPage, isFetching);
 
   useEffect(() => {
-    if (id) {
-      dispatch(getTweetsQuery(lastDoc));
-    }
-  }, [dispatch, id, lastDoc]);
+    dispatch(getTweetsQuery(lastDoc));
+  }, [dispatch, lastDoc]);
 
   useEffect(() => {
     return () => {

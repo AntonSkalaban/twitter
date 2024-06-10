@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Tweet } from "types/post";
+import { Tweet } from "types";
 
 export const useInfinityScroll = (tweets: Tweet[], isLastPage: boolean, isFetching: boolean) => {
   const [lastDoc, setLastDoc] = useState<number | null>(null);

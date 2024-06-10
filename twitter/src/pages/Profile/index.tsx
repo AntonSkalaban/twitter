@@ -1,14 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { FlexRow, H5, LinkGrey, LoadingSpinner, P, StyledPage, UserAvatar } from "styled/index";
-import { EditProfile } from "components/EditProfile";
-import { Modal } from "components/Modal";
-import { CreateTweet } from "components/Tweet/CreateTweet";
-import { TweetsList } from "components/TweetsList";
+import { FlexRow, H5, LinkGrey, LoadingSpinner, P, StyledPage } from "styled";
+import { CreateTweet, EditProfile, Modal, TweetsList } from "components";
 import { getUserTweetsQuery } from "store/sagas";
 import { getUserTweets, resetUserTweets } from "store/slices";
-import { useInfinityScroll } from "hooks/index";
+import { useInfinityScroll } from "hooks";
 
 import { ProfileProps } from "./types";
 import {
@@ -17,6 +14,7 @@ import {
   TweetsTitle,
   UserImgContainer,
   UserInfoContainer,
+  UserPhoto,
 } from "./styled";
 
 export const Profile: FC<ProfileProps> = ({ user, isCurrentUser }) => {
@@ -58,12 +56,9 @@ export const Profile: FC<ProfileProps> = ({ user, isCurrentUser }) => {
       <UserInfoContainer>
         <FlexRow>
           <UserImgContainer>
-            <UserAvatar
-              style={{ position: "absolute", width: "120px", height: "120px", bottom: 0 }}
-              src={image || ""}
-            />
+            <UserPhoto src={image || ""} />
           </UserImgContainer>
-          <EditButton onClick={handleClick}>Edit profile</EditButton>
+          {isCurrentUser && <EditButton onClick={handleClick}>Edit profile</EditButton>}
         </FlexRow>
 
         <H5>{name}</H5>

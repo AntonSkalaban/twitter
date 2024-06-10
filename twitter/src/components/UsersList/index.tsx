@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { P } from "styled/StyledComponents";
-import { UserCard } from "components/UserCard";
+import { P } from "styled";
+import { UserCard } from "components";
 
 import { UsersListProps } from "./types";
 

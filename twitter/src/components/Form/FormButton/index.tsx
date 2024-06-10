@@ -1,11 +1,8 @@
 import { FC } from "react";
 
-import { Button } from "styled/index";
+import { Button } from "styled";
 
-interface FormButtonProps {
-  title: string;
-  isFetching?: boolean;
-}
+import { FormButtonProps } from "./types";
 
 export const FormButton: FC<FormButtonProps> = ({ title, isFetching }) => {
   return (

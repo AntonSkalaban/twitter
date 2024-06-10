@@ -1,12 +1,16 @@
 import { FC } from "react";
+import { useSelector } from "react-redux";
 
-import { FlexRow, LinkGrey, PGrey } from "styled/StyledComponents";
+import { FlexRow, LinkGrey, PGrey } from "styled";
+import { getUser } from "store/slices";
 import MenuIcon from "assets/images/svg/dot-menu.svg?react";
 
 import { UserInfoContainer, UserName } from "../styled";
 import { TweetHeaderProps } from "./types";
 
-export const TweetHeader: FC<TweetHeaderProps> = ({ name, email, createdAt }) => {
+export const TweetHeader: FC<TweetHeaderProps> = ({ authorId, name, email, createdAt }) => {
+  const { id: userId } = useSelector(getUser);
+
   const date = createdAt && new Date(createdAt).toLocaleDateString();
 
   return (
@@ -15,7 +19,7 @@ export const TweetHeader: FC<TweetHeaderProps> = ({ name, email, createdAt }) =>
         <UserName>{name}</UserName>
         <LinkGrey> {email}</LinkGrey> <PGrey>· {date}</PGrey>
       </UserInfoContainer>
-      {email && <MenuIcon />}
+      {authorId === userId && <MenuIcon />}
     </FlexRow>
   );
 };

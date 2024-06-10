@@ -1,4 +1,4 @@
-import { User } from "types/index";
+import { User } from "types";
 
 export const getDefaultValues = (user: User) => {
   const { name, phone, email, birth } = user;

@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useRef } from "react";
 import { Control } from "react-hook-form";
 
-import { FormImageInput } from "components/Form/FormImageInput";
+import { FormImageInput } from "components";
 import ImageIcon from "assets/images/svg/image.svg?react";
 
 import { UploadImageButtonProps } from "./types";

@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { UserApi } from "api/index";
+import { UserApi } from "api";
 import { setUser } from "store/slices";
 import { auth } from "constants/index";
-import { PagePathsEnum } from "types/index";
+import { PagePathsEnum } from "types";
 
 import { telRegExp } from "./constants";
 import { FormValues } from "./types";

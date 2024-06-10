@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updatePassword, updateProfile } from "firebase/auth";
 
-import { UserApi } from "api/UserApi";
+import { UserApi } from "api";
 import { updateUser } from "store/slices";
 import { auth } from "constants/index";
-import { User } from "types/index";
+import { User } from "types";
 
 import { FormValues } from "./types";
 

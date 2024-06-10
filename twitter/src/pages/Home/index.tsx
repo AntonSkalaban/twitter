@@ -5,11 +5,10 @@ import { updatePassword } from "firebase/auth";
 
 import { signInWithGoogle, UserApi } from "api";
 import { H1, H2, Wrapper } from "styled";
-import { Modal } from "components/Modal";
-import { PasswordForm } from "components/PasswordForm";
+import { Modal, PasswordForm } from "components";
 import { setUser } from "store/slices";
 import { auth } from "constants/index";
-import { PagePathsEnum } from "types/paths";
+import { PagePathsEnum } from "types";
 import GoogleIcon from "assets/images/svg/google-logo.svg?react";
 import TwitterLogo from "assets/images/svg/twitter-logo.svg?react";
 

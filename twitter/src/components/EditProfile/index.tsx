@@ -1,21 +1,17 @@
-import { FC, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, FC, MouseEvent, useRef, useState } from "react";
 import { Control, Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { StyledForm, UserAvatar } from "styled/index";
-import { DateSelect } from "components/DateSelect";
-import { FormButton } from "components/Form/FormButton";
-import { FormImageInput } from "components/Form/FormImageInput";
-import { FormInput } from "components/Form/FormInput";
-import { ErrorMessage } from "components/UI/ErrorMessage";
+import { StyledForm, UserAvatar } from "styled";
+import { DateSelect, ErrorMessage, FormButton, FormImageInput, FormInput } from "components";
 import { getUser } from "store/slices";
 
 import { schema } from "./constansts";
 import { getDefaultValues } from "./helpers";
 import { useEditUser } from "./hook";
 import { FormValues } from "./types";
-import { AvatarContainer } from "./styled";
+import { AvatarContainer, EditAvatarBtn } from "./styled";
 
 export const EditProfile: FC = () => {
   const user = useSelector(getUser);
@@ -29,6 +25,7 @@ export const EditProfile: FC = () => {
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: getDefaultValues(user),
+    mode: "all",
   });
 
   const handleImageUpload = (e: MouseEvent<HTMLDivElement>) => {
@@ -45,6 +42,7 @@ export const EditProfile: FC = () => {
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <AvatarContainer onClick={handleImageUpload}>
           <UserAvatar src={base64String || ""} />
+          <EditAvatarBtn>Click to edit</EditAvatarBtn>
         </AvatarContainer>
 
         <FormImageInput
@@ -76,6 +74,9 @@ export const EditProfile: FC = () => {
           render={({ field, formState: { errors } }) => (
             <FormInput
               {...field}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                field.onChange(e.target.value.replace(/[^+\d]/g, ""))
+              }
               type="tel"
               maxLength={11}
               placeholder="Phone (80XXYYYYYYY)"

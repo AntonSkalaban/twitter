@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { Controller } from "react-hook-form";
 
-import { convertImageToBase64 } from "utils/convertImageToBase64";
+import { convertImageToBase64 } from "utils";
 
 import { ImageInputProps } from "./types";
 

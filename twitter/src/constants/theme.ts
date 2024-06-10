@@ -35,7 +35,6 @@ export const lightTheme: DefaultTheme = {
   svg: {
     color: baseTheme.colors.black,
   },
-  //   colors: {},
 };
 
 export const darkTheme: DefaultTheme = {
@@ -53,6 +52,4 @@ export const darkTheme: DefaultTheme = {
   svg: {
     color: baseTheme.colors.white,
   },
-
-  //   colors: {},
 };

@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
-import { Button } from "styled/StyledComponents";
-import { Modal } from "components/Modal";
-import { CreateTweet } from "components/Tweet/CreateTweet";
-import { UserCard } from "components/UserCard";
+import { Button } from "styled";
+import { CreateTweet, Modal, UserCard } from "components";
 import { getUser, removeUser } from "store/slices";
-import { useGetPageName } from "hooks/useGetPageName";
+import { useGetPageName } from "hooks";
 import { auth } from "constants/index";
-import { PageNamesEnum } from "types/paths";
+import { PageNamesEnum } from "types";
 
 import { Nav } from "./Nav";
 import { SidebarContainer } from "./styled";

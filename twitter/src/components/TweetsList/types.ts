@@ -1,4 +1,4 @@
-import { Tweet } from "types/index";
+import { Tweet } from "types";
 
 export interface ItemsListProps {
   itemType?: "big" | "small";

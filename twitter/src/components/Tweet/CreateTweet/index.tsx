@@ -3,14 +3,13 @@ import { Control, Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Button, UserAvatar } from "styled/StyledComponents";
-import { UserAvatarContainer } from "styled/StyledComponents";
+import { Button, UserAvatar, UserAvatarContainer } from "styled";
 import { StyledTweet, TweetContent } from "components/Tweet/styled";
-import { TweetImage } from "components/Tweet/TweetImage";
 import { createTweetQuery } from "store/sagas";
 import { getUser } from "store/slices";
 import { getAddPostStatus } from "store/slices/addPostSlice";
 
+import { TweetImage } from "../TweetImage";
 import { defaultValues, schema } from "./constants";
 import { autoResize } from "./helpers";
 import { CreateTweetFormProps, FormValues } from "./types";

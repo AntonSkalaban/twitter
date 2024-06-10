@@ -1,9 +1,8 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 
-import { StyledPage } from "styled/index";
-import { Searchbar } from "components/Searchbar";
-import { TweetsList } from "components/TweetsList";
+import { StyledPage } from "styled";
+import { Searchbar, TweetsList } from "components";
 import { getSearchedTweets } from "store/slices";
 
 export const Search: FC = () => {

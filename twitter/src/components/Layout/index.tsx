@@ -1,22 +1,17 @@
-import { FC, ReactNode, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
-import { H4, Wrapper } from "styled/StyledComponents";
-import { SidebarRight } from "components/SidebarRigth";
-import { ThemeToggle } from "components/ThemeToggle";
+import { H4, Wrapper } from "styled";
+import { SidebarRight, ThemeToggle } from "components";
 import { getUser } from "store/slices";
-import { useGetPageName } from "hooks/index";
-import { PageNamesEnum } from "types/paths";
+import { useGetPageName } from "hooks";
+import { PageNamesEnum } from "types";
 
 import { Sidebar } from "..";
 import { PageContainer, StyledMain, TopRow } from "./styled";
 
-interface MainLayoutProps {
-  children: ReactNode;
-}
-
-export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: FC = () => {
   const navigate = useNavigate();
 
   let pageName = useGetPageName();
@@ -42,7 +37,7 @@ export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
             </TopRow>
           </div>
 
-          {children}
+          <Outlet />
         </StyledMain>
 
         <SidebarRight />

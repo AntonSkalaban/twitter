@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import { borderGreyMixin, Button } from "styled/index";
+import { borderGreyMixin, Button, UserAvatar } from "styled/index";
 import { UserName } from "components/Tweet/TweetSmall/styled";
 import Flower from "assets/images/png/flower.png";
 
@@ -11,6 +11,12 @@ export const ImageContainer = styled.div`
   background: url(${Flower});
 `;
 
+export const UserPhoto = styled(UserAvatar)`
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  bottom: 0;
+`;
 export const UserInfoContainer = styled.section`
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import { FC, Fragment } from "react";
 
-import { P } from "styled/StyledComponents";
+import { P } from "styled";
 
 import { components } from "./constants";
 import { ItemsListProps } from "./types";

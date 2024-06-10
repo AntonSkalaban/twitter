@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 
-import { TweetBig } from "components/index";
+import { TweetBig } from "components";
 
 import { useTweetQuery } from "./hook";
 

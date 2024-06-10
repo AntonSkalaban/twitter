@@ -11,7 +11,7 @@ import { TweetSmallProps } from "./types";
 
 export const TweetSmall: FC<TweetSmallProps> = ({ tweet }) => {
   const navigate = useNavigate();
-  const { id, title, image, userImg, userName } = tweet;
+  const { id, title, image, userImg, userName, userId } = tweet;
 
   const handleClick = () => navigate(`/${PagePathsEnum.Home}/${id}`);
 
@@ -23,7 +23,7 @@ export const TweetSmall: FC<TweetSmallProps> = ({ tweet }) => {
       </UserAvatarContainer>
 
       <TweetContent>
-        <TweetHeader name={userName} />
+        <TweetHeader name={userName} authorId={userId} />
 
         <TweetText>{title}</TweetText>
 

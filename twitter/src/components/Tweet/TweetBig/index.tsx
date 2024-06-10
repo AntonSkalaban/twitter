@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-import { TweetApi } from "api/TweetApi";
+import { TweetApi } from "api";
 import { UserAvatar, UserAvatarContainer } from "styled";
-import { TweetHeader } from "components/Tweet/TweetHeader";
 
 import { StyledTweet, TweetContent, TweetText } from "../styled";
+import { TweetHeader } from "../TweetHeader";
 import { TweetImage } from "../TweetImage";
 import { LikeButton } from "./LikeButton";
 import { TweetBigProps } from "./types";
@@ -23,7 +23,7 @@ export const TweetBig: FC<TweetBigProps> = ({ tweet }) => {
       </UserAvatarContainer>
 
       <TweetContent>
-        <TweetHeader name={userName} email={userName} createdAt={createdAt} />
+        <TweetHeader authorId={userId} name={userName} email={userName} createdAt={createdAt} />
 
         <TweetText>{title}</TweetText>
 

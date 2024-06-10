@@ -22,11 +22,15 @@ export const StyledCloseBtn = styled.button`
   width: 25px;
   height: 25px;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
 
-  background-color: red;
+  background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const StyledModalContent = styled.div`

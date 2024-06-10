@@ -2,13 +2,11 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 
 import { H3 } from "styled/StyledComponents";
-import { TweetsList } from "components/TweetsList";
-import { UsersList } from "components/UsersList";
+import { Searchbar, TweetsList, UsersList } from "components";
 import { getSearchedTweets, getSearchedUsers } from "store/slices";
-import { useGetPageName } from "hooks/index";
-import { PageNamesEnum } from "types/paths";
+import { useGetPageName } from "hooks";
+import { PageNamesEnum } from "types";
 
-import { Searchbar } from "../Searchbar";
 import { useGetRandomUsers } from "./hooks";
 import { TweetsImages } from "./TweetsImages";
 import { StyledSidebar, UsersContainer } from "./styled";

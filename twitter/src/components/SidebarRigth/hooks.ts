@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { UserApi } from "api/index";
+import { UserApi } from "api";
 import { getUser } from "store/slices";
-import { User } from "types/index";
+import { User } from "types";
 
 export const useGetRandomUsers = () => {
   const [users, setUsers] = useState([] as User[]);
@@ -26,6 +26,7 @@ export const useGetRandomUsers = () => {
     };
 
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { users, isFetching, error };

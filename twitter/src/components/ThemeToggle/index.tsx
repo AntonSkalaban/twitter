@@ -2,8 +2,8 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getTheme, setTheme } from "store/slices";
-import { darkTheme, lightTheme } from "constants/theme";
-import { ThemeEnum } from "types/theme";
+import { darkTheme, lightTheme } from "constants/index";
+import { ThemeEnum } from "types";
 
 import { SwitchButton, SwitchInput, SwitchLabel } from "./styled";
 

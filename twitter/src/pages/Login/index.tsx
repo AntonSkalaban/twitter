@@ -4,9 +4,7 @@ import { NavLink } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { H2, StyledForm } from "styled";
-import { FormInput } from "components/Form/FormInput";
-import { FormButton } from "components/index";
-import { ErrorMessage } from "components/UI/ErrorMessage";
+import { ErrorMessage, FormButton, FormInput } from "components";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
 
 import { defaultValues, schema } from "./constants";

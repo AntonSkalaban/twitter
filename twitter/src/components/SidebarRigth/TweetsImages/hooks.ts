@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { TweetApi } from "api/TweetApi";
-import { TweetResponce } from "types/index";
+import { TweetApi } from "api";
+import { TweetResponce } from "types";
 
 export const useTweetsWithImageQuery = () => {
   const [tweets, setTweet] = useState<TweetResponce[]>([]);

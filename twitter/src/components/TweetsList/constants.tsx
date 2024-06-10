@@ -1,5 +1,5 @@
-import { TweetSmall } from "components/Tweet/TweetSmall";
-import { Tweet } from "types/index";
+import { TweetSmall } from "components";
+import { Tweet } from "types";
 
 import { TweetBig } from "..";
 

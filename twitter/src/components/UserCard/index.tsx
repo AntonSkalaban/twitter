@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { LinkGrey, UserAvatar, UserAvatarContainer } from "styled/StyledComponents";
+import { LinkGrey, UserAvatar, UserAvatarContainer } from "styled";
 import { UserNameSmall } from "components/Tweet/TweetSmall/styled";
 import { getUser } from "store/slices";
 

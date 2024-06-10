@@ -1,6 +1,6 @@
 import { forwardRef, useState } from "react";
 
-import { ErrorMessage } from "components/UI/ErrorMessage";
+import { ErrorMessage } from "components";
 import { useClickOutside } from "hooks";
 import VectorIcon from "assets/images/svg/vector.svg?react";
 

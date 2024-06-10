@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
-import { Input } from "styled/index";
-import { ErrorMessage } from "components/UI/ErrorMessage";
+import { Input } from "styled";
+import { ErrorMessage } from "components";
 
 import { FormInputProps } from "./types";
 

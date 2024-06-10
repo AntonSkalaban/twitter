@@ -6,13 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { UserApi } from "api/index";
+import { UserApi } from "api";
 import { StyledForm } from "styled";
-import { DateSelect } from "components/DateSelect";
-import { FormInput } from "components/Form/FormInput";
-import { FormButton } from "components/index";
-import { Modal } from "components/Modal";
-import { PasswordForm } from "components/PasswordForm";
+import { DateSelect, FormButton, FormInput, Modal, PasswordForm } from "components";
 import { setUser } from "store/slices";
 import { auth } from "constants/index";
 import TwitterIcon from "assets/images/svg/twitter-logo.svg?react";
@@ -35,7 +31,7 @@ export const SignUp: FC = () => {
   const { control, watch, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues,
-    mode: "onSubmit",
+    mode: "all",
   });
 
   const [isPasswordOpen, setIsPasswordOpen] = useState(false);

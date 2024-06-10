@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Button } from "styled";
-import { FormInput } from "components/Form/FormInput";
+import { FormInput } from "components";
 
 import { defaultValues, schema } from "./const";
 import { StyledPasswordForm } from "./style";
